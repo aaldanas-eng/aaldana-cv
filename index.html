@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alex Johnson - Full Stack Developer</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#57b5e7',secondary:'#8dd3c7'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+.skill-bar { transition: width 1s ease-in-out; }
+.project-card { transition: transform 0.3s ease; }
+.project-card:hover { transform: translateY(-8px); }
+.timeline-item::before {
+content: '';
+position: absolute;
+left: -6px;
+top: 0;
+width: 12px;
+height: 12px;
+background: #57b5e7;
+border-radius: 50%;
+}
+.timeline-line {
+position: absolute;
+left: -1px;
+top: 12px;
+bottom: -12px;
+width: 2px;
+background: #e5e7eb;
+}
+.toast {
+position: fixed;
+top: 20px;
+right: 20px;
+background: #10b981;
+color: white;
+padding: 16px 24px;
+border-radius: 8px;
+box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+z-index: 1000;
+transform: translateX(400px);
+transition: transform 0.3s ease;
+}
+.toast.show {
+transform: translateX(0);
+}
+</style>
+</head>
+<body class="bg-gray-50">
+<div class="relative h-screen bg-cover bg-center bg-no-repeat bg-fixed" style="background-image: url('https://readdy.ai/api/search-image?query=Modern%20professional%20workspace%20with%20clean%20minimalist%20design%2C%20soft%20lighting%2C%20contemporary%20office%20environment%20with%20subtle%20tech%20elements%2C%20clean%20white%20and%20blue%20color%20scheme%2C%20professional%20atmosphere%2C%20high-end%20corporate%20setting%20with%20geometric%20patterns%20and%20modern%20architecture&width=1920&height=1080&seq=hero-bg&orientation=landscape')">
+<div class="absolute inset-0 bg-white bg-opacity-90"></div>
+<header class="relative z-10 px-6 py-8 h-full flex items-center">
+<div class="max-w-6xl mx-auto w-full">
+<div class="flex flex-col lg:flex-row items-center justify-between">
+<div class="text-center lg:text-left mb-8 lg:mb-0">
+<h1 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-3">Alex Johnson</h1>
+<p class="text-lg lg:text-xl text-gray-600 mb-4">Full Stack Developer & UI/UX Designer</p>
+<div class="flex flex-wrap justify-center lg:justify-start gap-4 text-sm text-gray-600 mb-4">
+<div class="flex items-center gap-2">
+<div class="w-4 h-4 flex items-center justify-center">
+<i class="ri-mail-line"></i>
+</div>
+<span>alex.johnson@email.com</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-4 h-4 flex items-center justify-center">
+<i class="ri-phone-line"></i>
+</div>
+<span>+1 (555) 123-4567</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-4 h-4 flex items-center justify-center">
+<i class="ri-map-pin-line"></i>
+</div>
+<span>San Francisco, CA</span>
+</div>
+</div>
+<div class="flex justify-center lg:justify-start gap-3">
+<a href="#" class="w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full hover:bg-opacity-80 transition-colors">
+<i class="ri-linkedin-fill text-sm"></i>
+</a>
+<a href="#" class="w-8 h-8 flex items-center justify-center bg-gray-800 text-white rounded-full hover:bg-opacity-80 transition-colors">
+<i class="ri-github-fill text-sm"></i>
+</a>
+<a href="#" class="w-8 h-8 flex items-center justify-center bg-secondary text-white rounded-full hover:bg-opacity-80 transition-colors">
+<i class="ri-global-line text-sm"></i>
+</a>
+</div>
+</div>
+<div class="lg:w-64">
+<img src="https://readdy.ai/api/search-image?query=Professional%20headshot%20portrait%20of%20a%20confident%20software%20developer%2C%20clean%20studio%20lighting%2C%20modern%20business%20casual%20attire%2C%20friendly%20approachable%20expression%2C%20high%20quality%20professional%20photography%2C%20neutral%20background&width=400&height=400&seq=profile-photo&orientation=squarish" alt="Alex Johnson" class="w-48 h-48 lg:w-64 lg:h-64 rounded-full object-cover object-top shadow-2xl mx-auto">
+</div>
+</div>
+</div>
+</header>
+</div>
+<nav class="sticky top-0 z-50 bg-white shadow-md">
+<div class="max-w-6xl mx-auto px-6">
+<div class="flex justify-center space-x-8 py-4">
+<a href="#about" class="nav-link text-gray-700 hover:text-primary font-medium transition-colors">About</a>
+<a href="#experience" class="nav-link text-gray-700 hover:text-primary font-medium transition-colors">Experience</a>
+<a href="#skills" class="nav-link text-gray-700 hover:text-primary font-medium transition-colors">Skills</a>
+<a href="#portfolio" class="nav-link text-gray-700 hover:text-primary font-medium transition-colors">Portfolio</a>
+<a href="#education" class="nav-link text-gray-700 hover:text-primary font-medium transition-colors">Education</a>
+<a href="#contact" class="nav-link text-gray-700 hover:text-primary font-medium transition-colors">Contact</a>
+</div>
+</div>
+</nav>
+<main>
+<section id="about" class="py-20 bg-white">
+<div class="max-w-6xl mx-auto px-6">
+<div class="text-center mb-16">
+<h2 class="text-4xl font-bold text-gray-900 mb-4">About Me</h2>
+<div class="w-20 h-1 bg-primary mx-auto"></div>
+</div>
+<div class="grid lg:grid-cols-2 gap-12 items-center">
+<div>
+<p class="text-lg text-gray-600 leading-relaxed mb-6">
+I'm a passionate Full Stack Developer with over 5 years of experience creating innovative web applications and user experiences. My expertise spans across modern JavaScript frameworks, backend technologies, and UI/UX design principles.
+</p>
+<p class="text-lg text-gray-600 leading-relaxed mb-6">
+I believe in writing clean, maintainable code and creating intuitive user interfaces that solve real-world problems. My approach combines technical excellence with creative problem-solving to deliver exceptional digital experiences.
+</p>
+<p class="text-lg text-gray-600 leading-relaxed mb-8">
+When I'm not coding, you can find me exploring new technologies, contributing to open-source projects, or sharing knowledge with the developer community through blog posts and speaking engagements.
+</p>
+<a href="#" id="downloadCV" class="inline-flex items-center gap-2 bg-primary text-white px-8 py-3 !rounded-button hover:bg-opacity-90 transition-colors whitespace-nowrap">
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-download-line"></i>
+</div>
+Download CV
+</a>
+</div>
+<div class="grid grid-cols-2 gap-6">
+<div class="bg-gray-50 p-6 rounded-lg text-center">
+<div class="text-3xl font-bold text-primary mb-2">50+</div>
+<div class="text-gray-600">Projects Completed</div>
+</div>
+<div class="bg-gray-50 p-6 rounded-lg text-center">
+<div class="text-3xl font-bold text-primary mb-2">5+</div>
+<div class="text-gray-600">Years Experience</div>
+</div>
+<div class="bg-gray-50 p-6 rounded-lg text-center">
+<div class="text-3xl font-bold text-primary mb-2">30+</div>
+<div class="text-gray-600">Happy Clients</div>
+</div>
+<div class="bg-gray-50 p-6 rounded-lg text-center">
+<div class="text-3xl font-bold text-primary mb-2">15+</div>
+<div class="text-gray-600">Technologies</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="experience" class="py-20 bg-gray-50">
+<div class="max-w-6xl mx-auto px-6">
+<div class="text-center mb-16">
+<h2 class="text-4xl font-bold text-gray-900 mb-4">Work Experience</h2>
+<div class="w-20 h-1 bg-primary mx-auto"></div>
+</div>
+<div class="relative">
+<div class="absolute left-8 top-0 bottom-0 w-0.5 bg-gray-300"></div>
+<div class="space-y-12">
+<div class="relative pl-20 timeline-item">
+<div class="timeline-line"></div>
+<div class="bg-white p-8 rounded-lg shadow-md">
+<div class="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-4">
+<div>
+<h3 class="text-xl font-bold text-gray-900">Senior Full Stack Developer</h3>
+<p class="text-primary font-medium">TechCorp Solutions</p>
+</div>
+<span class="text-gray-500 font-medium">2022 - Present</span>
+</div>
+<ul class="text-gray-600 space-y-2">
+<li>• Led development of 3 major web applications using React, Node.js, and MongoDB</li>
+<li>• Implemented microservices architecture reducing system response time by 40%</li>
+<li>• Mentored junior developers and conducted code reviews</li>
+<li>• Collaborated with UX team to improve user engagement by 60%</li>
+</ul>
+</div>
+</div>
+<div class="relative pl-20 timeline-item">
+<div class="timeline-line"></div>
+<div class="bg-white p-8 rounded-lg shadow-md">
+<div class="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-4">
+<div>
+<h3 class="text-xl font-bold text-gray-900">Full Stack Developer</h3>
+<p class="text-primary font-medium">Digital Innovations Inc</p>
+</div>
+<span class="text-gray-500 font-medium">2020 - 2022</span>
+</div>
+<ul class="text-gray-600 space-y-2">
+<li>• Developed and maintained e-commerce platforms serving 10,000+ users</li>
+<li>• Built RESTful APIs and integrated third-party payment systems</li>
+<li>• Optimized database queries improving application performance by 35%</li>
+<li>• Implemented automated testing reducing bug reports by 50%</li>
+</ul>
+</div>
+</div>
+<div class="relative pl-20 timeline-item">
+<div class="bg-white p-8 rounded-lg shadow-md">
+<div class="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-4">
+<div>
+<h3 class="text-xl font-bold text-gray-900">Frontend Developer</h3>
+<p class="text-primary font-medium">StartupHub</p>
+</div>
+<span class="text-gray-500 font-medium">2019 - 2020</span>
+</div>
+<ul class="text-gray-600 space-y-2">
+<li>• Created responsive web applications using Vue.js and CSS frameworks</li>
+<li>• Collaborated with designers to implement pixel-perfect UI components</li>
+<li>• Improved website loading speed by 45% through optimization techniques</li>
+<li>• Participated in agile development processes and sprint planning</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="skills" class="py-20 bg-white">
+<div class="max-w-6xl mx-auto px-6">
+<div class="text-center mb-16">
+<h2 class="text-4xl font-bold text-gray-900 mb-4">Skills & Technologies</h2>
+<div class="w-20 h-1 bg-primary mx-auto"></div>
+</div>
+<div class="grid lg:grid-cols-2 gap-12">
+<div>
+<h3 class="text-2xl font-bold text-gray-900 mb-8">Technical Skills</h3>
+<div class="space-y-6">
+<div>
+<div class="flex justify-between mb-2">
+<span class="font-medium text-gray-700">JavaScript / TypeScript</span>
+<span class="text-gray-500">95%</span>
+</div>
+<div class="w-full bg-gray-200 rounded-full h-3">
+<div class="skill-bar bg-primary h-3 rounded-full" style="width: 95%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between mb-2">
+<span class="font-medium text-gray-700">React / Vue.js</span>
+<span class="text-gray-500">90%</span>
+</div>
+<div class="w-full bg-gray-200 rounded-full h-3">
+<div class="skill-bar bg-primary h-3 rounded-full" style="width: 90%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between mb-2">
+<span class="font-medium text-gray-700">Node.js / Express</span>
+<span class="text-gray-500">88%</span>
+</div>
+<div class="w-full bg-gray-200 rounded-full h-3">
+<div class="skill-bar bg-secondary h-3 rounded-full" style="width: 88%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between mb-2">
+<span class="font-medium text-gray-700">Python / Django</span>
+<span class="text-gray-500">85%</span>
+</div>
+<div class="w-full bg-gray-200 rounded-full h-3">
+<div class="skill-bar bg-secondary h-3 rounded-full" style="width: 85%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between mb-2">
+<span class="font-medium text-gray-700">MongoDB / PostgreSQL</span>
+<span class="text-gray-500">82%</span>
+</div>
+<div class="w-full bg-gray-200 rounded-full h-3">
+<div class="skill-bar bg-secondary h-3 rounded-full" style="width: 82%"></div>
+</div>
+</div>
+</div>
+</div>
+<div>
+<h3 class="text-2xl font-bold text-gray-900 mb-8">Tools & Frameworks</h3>
+<div class="grid grid-cols-3 gap-6">
+<div class="text-center p-4 bg-gray-50 rounded-lg">
+<div class="w-12 h-12 flex items-center justify-center mx-auto mb-3 text-2xl text-primary">
+<i class="ri-reactjs-line"></i>
+</div>
+<span class="text-sm font-medium text-gray-700">React</span>
+</div>
+<div class="text-center p-4 bg-gray-50 rounded-lg">
+<div class="w-12 h-12 flex items-center justify-center mx-auto mb-3 text-2xl text-primary">
+<i class="ri-vuejs-line"></i>
+</div>
+<span class="text-sm font-medium text-gray-700">Vue.js</span>
+</div>
+<div class="text-center p-4 bg-gray-50 rounded-lg">
+<div class="w-12 h-12 flex items-center justify-center mx-auto mb-3 text-2xl text-primary">
+<i class="ri-nodejs-line"></i>
+</div>
+<span class="text-sm font-medium text-gray-700">Node.js</span>
+</div>
+<div class="text-center p-4 bg-gray-50 rounded-lg">
+<div class="w-12 h-12 flex items-center justify-center mx-auto mb-3 text-2xl text-primary">
+<i class="ri-database-line"></i>
+</div>
+<span class="text-sm font-medium text-gray-700">MongoDB</span>
+</div>
+<div class="text-center p-4 bg-gray-50 rounded-lg">
+<div class="w-12 h-12 flex items-center justify-center mx-auto mb-3 text-2xl text-primary">
+<i class="ri-git-branch-line"></i>
+</div>
+<span class="text-sm font-medium text-gray-700">Git</span>
+</div>
+<div class="text-center p-4 bg-gray-50 rounded-lg">
+<div class="w-12 h-12 flex items-center justify-center mx-auto mb-3 text-2xl text-primary">
+<i class="ri-cloud-line"></i>
+</div>
+<span class="text-sm font-medium text-gray-700">AWS</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="portfolio" class="py-20 bg-gray-50">
+<div class="max-w-6xl mx-auto px-6">
+<div class="text-center mb-16">
+<h2 class="text-4xl font-bold text-gray-900 mb-4">Portfolio</h2>
+<div class="w-20 h-1 bg-primary mx-auto mb-8"></div>
+<div class="flex justify-center gap-4 mb-8">
+<button class="filter-btn bg-primary text-white px-6 py-2 !rounded-button whitespace-nowrap" data-filter="all">All Projects</button>
+<button class="filter-btn bg-gray-200 text-gray-700 px-6 py-2 !rounded-button hover:bg-gray-300 whitespace-nowrap" data-filter="web">Web Apps</button>
+<button class="filter-btn bg-gray-200 text-gray-700 px-6 py-2 !rounded-button hover:bg-gray-300 whitespace-nowrap" data-filter="mobile">Mobile</button>
+<button class="filter-btn bg-gray-200 text-gray-700 px-6 py-2 !rounded-button hover:bg-gray-300 whitespace-nowrap" data-filter="design">UI/UX</button>
+</div>
+</div>
+<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+<div class="project-card bg-white rounded-lg shadow-md overflow-hidden" data-category="web">
+<img src="https://readdy.ai/api/search-image?query=Modern%20e-commerce%20web%20application%20interface%20design%2C%20clean%20product%20listing%20page%20with%20shopping%20cart%2C%20professional%20UI%20design%2C%20contemporary%20web%20layout%2C%20blue%20and%20white%20color%20scheme%2C%20high%20quality%20web%20design%20mockup&width=400&height=250&seq=project-1&orientation=landscape" alt="E-commerce Platform" class="w-full h-48 object-cover object-top">
+<div class="p-6">
+<h3 class="text-xl font-bold text-gray-900 mb-2">E-commerce Platform</h3>
+<p class="text-gray-600 mb-4">A full-featured online shopping platform built with React and Node.js, featuring payment integration and inventory management.</p>
+<div class="flex gap-2 mb-4">
+<span class="px-3 py-1 bg-primary bg-opacity-10 text-primary text-sm rounded-full">React</span>
+<span class="px-3 py-1 bg-secondary bg-opacity-10 text-secondary text-sm rounded-full">Node.js</span>
+<span class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">MongoDB</span>
+</div>
+<div class="flex gap-3">
+<a href="#" class="flex items-center gap-2 text-primary hover:text-opacity-80">
+<div class="w-4 h-4 flex items-center justify-center">
+<i class="ri-external-link-line"></i>
+</div>
+Live Demo
+</a>
+<a href="#" class="flex items-center gap-2 text-gray-600 hover:text-gray-800">
+<div class="w-4 h-4 flex items-center justify-center">
+<i class="ri-github-line"></i>
+</div>
+Code
+</a>
+</div>
+</div>
+</div>
+<div class="project-card bg-white rounded-lg shadow-md overflow-hidden" data-category="mobile">
+<img src="https://readdy.ai/api/search-image?query=Mobile%20task%20management%20app%20interface%20design%2C%20clean%20todo%20list%20application%2C%20modern%20mobile%20UI%20design%2C%20productivity%20app%20mockup%2C%20minimalist%20design%20with%20blue%20accents%2C%20professional%20mobile%20app%20design&width=400&height=250&seq=project-2&orientation=landscape" alt="Task Management App" class="w-full h-48 object-cover object-top">
+<div class="p-6">
+<h3 class="text-xl font-bold text-gray-900 mb-2">Task Management App</h3>
+<p class="text-gray-600 mb-4">A productivity mobile application with real-time synchronization, team collaboration features, and intuitive task organization.</p>
+<div class="flex gap-2 mb-4">
+<span class="px-3 py-1 bg-primary bg-opacity-10 text-primary text-sm rounded-full">React Native</span>
+<span class="px-3 py-1 bg-secondary bg-opacity-10 text-secondary text-sm rounded-full">Firebase</span>
+</div>
+<div class="flex gap-3">
+<a href="#" class="flex items-center gap-2 text-primary hover:text-opacity-80">
+<div class="w-4 h-4 flex items-center justify-center">
+<i class="ri-external-link-line"></i>
+</div>
+Live Demo
+</a>
+<a href="#" class="flex items-center gap-2 text-gray-600 hover:text-gray-800">
+<div class="w-4 h-4 flex items-center justify-center">
+<i class="ri-github-line"></i>
+</div>
+Code
+</a>
+</div>
+</div>
+</div>
+<div class="project-card bg-white rounded-lg shadow-md overflow-hidden" data-category="web">
+<img src="https://readdy.ai/api/search-image?query=Analytics%20dashboard%20web%20interface%20design%2C%20data%20visualization%20charts%20and%20graphs%2C%20modern%20business%20intelligence%20dashboard%2C%20professional%20web%20application%20UI%2C%20clean%20data%20presentation%20with%20blue%20color%20scheme&width=400&height=250&seq=project-3&orientation=landscape" alt="Analytics Dashboard" class="w-full h-48 object-cover object-top">
+<div class="p-6">
+<h3 class="text-xl font-bold text-gray-900 mb-2">Analytics Dashboard</h3>
+<p class="text-gray-600 mb-4">A comprehensive business intelligence dashboard with interactive charts, real-time data updates, and customizable reports.</p>
+<div class="flex gap-2 mb-4">
+<span class="px-3 py-1 bg-primary bg-opacity-10 text-primary text-sm rounded-full">Vue.js</span>
+<span class="px-3 py-1 bg-secondary bg-opacity-10 text-secondary text-sm rounded-full">Python</span>
+<span class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">PostgreSQL</span>
+</div>
+<div class="flex gap-3">
+<a href="#" class="flex items-center gap-2 text-primary hover:text-opacity-80">
+<div class="w-4 h-4 flex items-center justify-center">
+<i class="ri-external-link-line"></i>
+</div>
+Live Demo
+</a>
+<a href="#" class="flex items-center gap-2 text-gray-600 hover:text-gray-800">
+<div class="w-4 h-4 flex items-center justify-center">
+<i class="ri-github-line"></i>
+</div>
+Code
+</a>
+</div>
+</div>
+</div>
+<div class="project-card bg-white rounded-lg shadow-md overflow-hidden" data-category="design">
+<img src="https://readdy.ai/api/search-image?query=Modern%20banking%20mobile%20app%20UI%20design%20mockup%2C%20financial%20application%20interface%2C%20clean%20mobile%20banking%20design%2C%20professional%20fintech%20app%20design%2C%20blue%20and%20white%20color%20scheme%2C%20elegant%20mobile%20interface&width=400&height=250&seq=project-4&orientation=landscape" alt="Banking App Design" class="w-full h-48 object-cover object-top">
+<div class="p-6">
+<h3 class="text-xl font-bold text-gray-900 mb-2">Banking App Design</h3>
+<p class="text-gray-600 mb-4">Complete UI/UX design for a modern banking application, focusing on security, accessibility, and user experience.</p>
+<div class="flex gap-2 mb-4">
+<span class="px-3 py-1 bg-primary bg-opacity-10 text-primary text-sm rounded-full">Figma</span>
+<span class="px-3 py-1 bg-secondary bg-opacity-10 text-secondary text-sm rounded-full">Prototyping</span>
+</div>
+<div class="flex gap-3">
+<a href="#" class="flex items-center gap-2 text-primary hover:text-opacity-80">
+<div class="w-4 h-4 flex items-center justify-center">
+<i class="ri-external-link-line"></i>
+</div>
+View Design
+</a>
+<a href="#" class="flex items-center gap-2 text-gray-600 hover:text-gray-800">
+<div class="w-4 h-4 flex items-center justify-center">
+<i class="ri-file-line"></i>
+</div>
+Case Study
+</a>
+</div>
+</div>
+</div>
+<div class="project-card bg-white rounded-lg shadow-md overflow-hidden" data-category="web">
+<img src="https://readdy.ai/api/search-image?query=Social%20media%20web%20platform%20interface%20design%2C%20modern%20social%20networking%20application%2C%20clean%20feed%20layout%20with%20posts%20and%20interactions%2C%20contemporary%20web%20design%2C%20blue%20accent%20colors%2C%20professional%20social%20platform%20UI&width=400&height=250&seq=project-5&orientation=landscape" alt="Social Media Platform" class="w-full h-48 object-cover object-top">
+<div class="p-6">
+<h3 class="text-xl font-bold text-gray-900 mb-2">Social Media Platform</h3>
+<p class="text-gray-600 mb-4">A modern social networking platform with real-time messaging, content sharing, and advanced privacy controls.</p>
+<div class="flex gap-2 mb-4">
+<span class="px-3 py-1 bg-primary bg-opacity-10 text-primary text-sm rounded-full">Next.js</span>
+<span class="px-3 py-1 bg-secondary bg-opacity-10 text-secondary text-sm rounded-full">Socket.io</span>
+<span class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">Redis</span>
+</div>
+<div class="flex gap-3">
+<a href="#" class="flex items-center gap-2 text-primary hover:text-opacity-80">
+<div class="w-4 h-4 flex items-center justify-center">
+<i class="ri-external-link-line"></i>
+</div>
+Live Demo
+</a>
+<a href="#" class="flex items-center gap-2 text-gray-600 hover:text-gray-800">
+<div class="w-4 h-4 flex items-center justify-center">
+<i class="ri-github-line"></i>
+</div>
+Code
+</a>
+</div>
+</div>
+</div>
+<div class="project-card bg-white rounded-lg shadow-md overflow-hidden" data-category="design">
+<img src="https://readdy.ai/api/search-image?query=Modern%20fitness%20tracking%20mobile%20app%20UI%20design%2C%20health%20and%20wellness%20application%20interface%2C%20workout%20tracking%20design%2C%20clean%20mobile%20app%20mockup%2C%20blue%20and%20green%20color%20scheme%2C%20professional%20fitness%20app%20design&width=400&height=250&seq=project-6&orientation=landscape" alt="Fitness App Design" class="w-full h-48 object-cover object-top">
+<div class="p-6">
+<h3 class="text-xl font-bold text-gray-900 mb-2">Fitness App Design</h3>
+<p class="text-gray-600 mb-4">Complete design system for a fitness tracking application, including workout plans, progress tracking, and social features.</p>
+<div class="flex gap-2 mb-4">
+<span class="px-3 py-1 bg-primary bg-opacity-10 text-primary text-sm rounded-full">Adobe XD</span>
+<span class="px-3 py-1 bg-secondary bg-opacity-10 text-secondary text-sm rounded-full">User Research</span>
+</div>
+<div class="flex gap-3">
+<a href="#" class="flex items-center gap-2 text-primary hover:text-opacity-80">
+<div class="w-4 h-4 flex items-center justify-center">
+<i class="ri-external-link-line"></i>
+</div>
+View Design
+</a>
+<a href="#" class="flex items-center gap-2 text-gray-600 hover:text-gray-800">
+<div class="w-4 h-4 flex items-center justify-center">
+<i class="ri-file-line"></i>
+</div>
+Case Study
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="education" class="py-20 bg-white">
+<div class="max-w-6xl mx-auto px-6">
+<div class="text-center mb-16">
+<h2 class="text-4xl font-bold text-gray-900 mb-4">Education & Certifications</h2>
+<div class="w-20 h-1 bg-primary mx-auto"></div>
+</div>
+<div class="grid lg:grid-cols-2 gap-12">
+<div>
+<h3 class="text-2xl font-bold text-gray-900 mb-8">Education</h3>
+<div class="space-y-6">
+<div class="bg-gray-50 p-6 rounded-lg">
+<h4 class="text-xl font-bold text-gray-900 mb-2">Bachelor of Science in Computer Science</h4>
+<p class="text-primary font-medium mb-2">Stanford University</p>
+<p class="text-gray-500 mb-3">2015 - 2019</p>
+<p class="text-gray-600">Graduated Magna Cum Laude with focus on Software Engineering and Human-Computer Interaction. Relevant coursework: Data Structures, Algorithms, Web Development, Database Systems.</p>
+</div>
+<div class="bg-gray-50 p-6 rounded-lg">
+<h4 class="text-xl font-bold text-gray-900 mb-2">Master of Science in Software Engineering</h4>
+<p class="text-primary font-medium mb-2">UC Berkeley</p>
+<p class="text-gray-500 mb-3">2019 - 2021</p>
+<p class="text-gray-600">Specialized in Advanced Software Architecture and Machine Learning Applications. Thesis: "Scalable Web Applications using Microservices Architecture".</p>
+</div>
+</div>
+</div>
+<div>
+<h3 class="text-2xl font-bold text-gray-900 mb-8">Certifications</h3>
+<div class="space-y-4">
+<div class="flex items-center gap-4 p-4 bg-gray-50 rounded-lg">
+<div class="w-12 h-12 flex items-center justify-center bg-primary text-white rounded-full">
+<i class="ri-award-line"></i>
+</div>
+<div>
+<h4 class="font-bold text-gray-900">AWS Certified Solutions Architect</h4>
+<p class="text-gray-500">Amazon Web Services • 2023</p>
+</div>
+</div>
+<div class="flex items-center gap-4 p-4 bg-gray-50 rounded-lg">
+<div class="w-12 h-12 flex items-center justify-center bg-secondary text-white rounded-full">
+<i class="ri-award-line"></i>
+</div>
+<div>
+<h4 class="font-bold text-gray-900">Google Cloud Professional Developer</h4>
+<p class="text-gray-500">Google Cloud Platform • 2022</p>
+</div>
+</div>
+<div class="flex items-center gap-4 p-4 bg-gray-50 rounded-lg">
+<div class="w-12 h-12 flex items-center justify-center bg-primary text-white rounded-full">
+<i class="ri-award-line"></i>
+</div>
+<div>
+<h4 class="font-bold text-gray-900">Certified Kubernetes Administrator</h4>
+<p class="text-gray-500">Cloud Native Computing Foundation • 2022</p>
+</div>
+</div>
+<div class="flex items-center gap-4 p-4 bg-gray-50 rounded-lg">
+<div class="w-12 h-12 flex items-center justify-center bg-secondary text-white rounded-full">
+<i class="ri-award-line"></i>
+</div>
+<div>
+<h4 class="font-bold text-gray-900">MongoDB Certified Developer</h4>
+<p class="text-gray-500">MongoDB University • 2021</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="contact" class="py-20 bg-gray-50">
+<div class="max-w-6xl mx-auto px-6">
+<div class="text-center mb-16">
+<h2 class="text-4xl font-bold text-gray-900 mb-4">Get In Touch</h2>
+<div class="w-20 h-1 bg-primary mx-auto mb-6"></div>
+<p class="text-lg text-gray-600 max-w-2xl mx-auto">
+I'm always interested in new opportunities and exciting projects. Whether you have a question or just want to say hello, feel free to reach out!
+</p>
+</div>
+<div class="grid lg:grid-cols-2 gap-12">
+<div>
+<h3 class="text-2xl font-bold text-gray-900 mb-8">Contact Information</h3>
+<div class="space-y-6">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 flex items-center justify-center bg-primary text-white rounded-full">
+<i class="ri-mail-line"></i>
+</div>
+<div>
+<h4 class="font-medium text-gray-900">Email</h4>
+<p class="text-gray-600">alex.johnson@email.com</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 flex items-center justify-center bg-secondary text-white rounded-full">
+<i class="ri-phone-line"></i>
+</div>
+<div>
+<h4 class="font-medium text-gray-900">Phone</h4>
+<p class="text-gray-600">+1 (555) 123-4567</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 flex items-center justify-center bg-primary text-white rounded-full">
+<i class="ri-map-pin-line"></i>
+</div>
+<div>
+<h4 class="font-medium text-gray-900">Location</h4>
+<p class="text-gray-600">San Francisco, CA, USA</p>
+</div>
+</div>
+</div>
+<div class="mt-8">
+<h4 class="font-medium text-gray-900 mb-4">Follow Me</h4>
+<div class="flex gap-4">
+<a href="#" class="w-10 h-10 flex items-center justify-center bg-primary text-white rounded-full hover:bg-opacity-80 transition-colors">
+<i class="ri-linkedin-fill"></i>
+</a>
+<a href="#" class="w-10 h-10 flex items-center justify-center bg-gray-800 text-white rounded-full hover:bg-opacity-80 transition-colors">
+<i class="ri-github-fill"></i>
+</a>
+<a href="#" class="w-10 h-10 flex items-center justify-center bg-blue-500 text-white rounded-full hover:bg-opacity-80 transition-colors">
+<i class="ri-twitter-fill"></i>
+</a>
+<a href="#" class="w-10 h-10 flex items-center justify-center bg-secondary text-white rounded-full hover:bg-opacity-80 transition-colors">
+<i class="ri-global-line"></i>
+</a>
+</div>
+</div>
+</div>
+<div>
+<form id="contact-form" data-readdy-form class="bg-white p-8 rounded-lg shadow-md">
+<div class="grid md:grid-cols-2 gap-6 mb-6">
+<div>
+<label for="name" class="block text-sm font-medium text-gray-700 mb-2">Name</label>
+<input type="text" id="name" name="name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-sm" placeholder="Your Name">
+</div>
+<div>
+<label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+<input type="email" id="email" name="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-sm" placeholder="your@email.com">
+</div>
+</div>
+<div class="mb-6">
+<label for="subject" class="block text-sm font-medium text-gray-700 mb-2">Subject</label>
+<input type="text" id="subject" name="subject" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-sm" placeholder="Project Inquiry">
+</div>
+<div class="mb-6">
+<label for="message" class="block text-sm font-medium text-gray-700 mb-2">Message</label>
+<textarea id="message" name="message" rows="5" maxlength="500" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent resize-none text-sm" placeholder="Tell me about your project..."></textarea>
+<div class="text-right text-xs text-gray-500 mt-1">
+<span id="message-count">0</span>/500 characters
+</div>
+</div>
+<button type="submit" id="submit-btn" class="w-full bg-primary text-white py-3 px-6 !rounded-button hover:bg-opacity-90 transition-colors font-medium whitespace-nowrap">
+Send Message
+</button>
+<div id="form-status" class="mt-4 text-center hidden"></div>
+</form>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="bg-gray-900 text-white py-12">
+<div class="max-w-6xl mx-auto px-6">
+<div class="text-center">
+<h3 class="text-2xl font-bold mb-4">Alex Johnson</h3>
+<p class="text-gray-400 mb-6">Full Stack Developer & UI/UX Designer</p>
+<div class="flex justify-center gap-6 mb-8">
+<a href="#" class="text-gray-400 hover:text-white transition-colors">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-linkedin-fill"></i>
+</div>
+</a>
+<a href="#" class="text-gray-400 hover:text-white transition-colors">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-github-fill"></i>
+</div>
+</a>
+<a href="#" class="text-gray-400 hover:text-white transition-colors">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-twitter-fill"></i>
+</div>
+</a>
+<a href="#" class="text-gray-400 hover:text-white transition-colors">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-global-line"></i>
+</div>
+</a>
+</div>
+<div class="border-t border-gray-800 pt-6">
+<p class="text-gray-400">&copy; 2024 Alex Johnson. All rights reserved.</p>
+</div>
+</div>
+</div>
+<button id="backToTop" class="fixed bottom-8 right-8 w-12 h-12 bg-primary text-white rounded-full shadow-lg hover:bg-opacity-90 transition-all opacity-0 invisible">
+<div class="w-full h-full flex items-center justify-center">
+<i class="ri-arrow-up-line"></i>
+</div>
+</button>
+</footer>
+<script id="navigation-scroll">
+document.addEventListener('DOMContentLoaded', function() {
+const navLinks = document.querySelectorAll('.nav-link');
+const sections = document.querySelectorAll('section[id]');
+function updateActiveLink() {
+let current = '';
+sections.forEach(section => {
+const sectionTop = section.offsetTop - 100;
+if (window.scrollY >= sectionTop) {
+current = section.getAttribute('id');
+}
+});
+navLinks.forEach(link => {
+link.classList.remove('text-primary');
+link.classList.add('text-gray-700');
+if (link.getAttribute('href') === `#${current}`) {
+link.classList.remove('text-gray-700');
+link.classList.add('text-primary');
+}
+});
+}
+window.addEventListener('scroll', updateActiveLink);
+navLinks.forEach(link => {
+link.addEventListener('click', function(e) {
+e.preventDefault();
+const targetId = this.getAttribute('href');
+const targetSection = document.querySelector(targetId);
+if (targetSection) {
+const offsetTop = targetSection.offsetTop - 80;
+window.scrollTo({
+top: offsetTop,
+behavior: 'smooth'
+});
+}
+});
+});
+});
+</script>
+<script id="portfolio-filter">
+document.addEventListener('DOMContentLoaded', function() {
+const filterButtons = document.querySelectorAll('.filter-btn');
+const projectCards = document.querySelectorAll('.project-card');
+filterButtons.forEach(button => {
+button.addEventListener('click', function() {
+const filter = this.getAttribute('data-filter');
+filterButtons.forEach(btn => {
+btn.classList.remove('bg-primary', 'text-white');
+btn.classList.add('bg-gray-200', 'text-gray-700');
+});
+this.classList.remove('bg-gray-200', 'text-gray-700');
+this.classList.add('bg-primary', 'text-white');
+projectCards.forEach(card => {
+if (filter === 'all' || card.getAttribute('data-category') === filter) {
+card.style.display = 'block';
+} else {
+card.style.display = 'none';
+}
+});
+});
+});
+});
+</script>
+<script id="back-to-top">
+document.addEventListener('DOMContentLoaded', function() {
+const backToTopButton = document.getElementById('backToTop');
+window.addEventListener('scroll', function() {
+if (window.scrollY > 300) {
+backToTopButton.classList.remove('opacity-0', 'invisible');
+backToTopButton.classList.add('opacity-100', 'visible');
+} else {
+backToTopButton.classList.remove('opacity-100', 'visible');
+backToTopButton.classList.add('opacity-0', 'invisible');
+}
+});
+backToTopButton.addEventListener('click', function() {
+window.scrollTo({
+top: 0,
+behavior: 'smooth'
+});
+});
+});
+</script>
+<script id="contact-form">
+document.addEventListener('DOMContentLoaded', function() {
+const contactForm = document.getElementById('contact-form');
+const messageTextarea = document.getElementById('message');
+const messageCount = document.getElementById('message-count');
+const submitBtn = document.getElementById('submit-btn');
+const formStatus = document.getElementById('form-status');
+messageTextarea.addEventListener('input', function() {
+const currentLength = this.value.length;
+messageCount.textContent = currentLength;
+if (currentLength > 500) {
+this.value = this.value.substring(0, 500);
+messageCount.textContent = '500';
+}
+});
+function showStatus(message, isError = false) {
+formStatus.className = `mt-4 text-center p-3 rounded-lg ${isError ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'}`;
+formStatus.textContent = message;
+formStatus.classList.remove('hidden');
+}
+function validateForm(formData) {
+const name = formData.get('name');
+const email = formData.get('email');
+const subject = formData.get('subject');
+const message = formData.get('message');
+if (!name || name.trim().length === 0) {
+return 'Please enter your name';
+}
+if (!email || email.trim().length === 0) {
+return 'Please enter your email address';
+}
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+if (!emailRegex.test(email)) {
+return 'Please enter a valid email address';
+}
+if (!subject || subject.trim().length === 0) {
+return 'Please enter a subject';
+}
+if (!message || message.trim().length === 0) {
+return 'Please enter your message';
+}
+if (message.length > 500) {
+return 'Message cannot exceed 500 characters';
+}
+return null;
+}
+contactForm.addEventListener('submit', async function(e) {
+e.preventDefault();
+const formData = new FormData(this);
+const validationError = validateForm(formData);
+if (validationError) {
+showStatus(validationError, true);
+return;
+}
+submitBtn.disabled = true;
+submitBtn.textContent = 'Sending...';
+formStatus.classList.add('hidden');
+try {
+const urlEncodedData = new URLSearchParams();
+urlEncodedData.append('name', formData.get('name').trim());
+urlEncodedData.append('email', formData.get('email').trim());
+urlEncodedData.append('subject', formData.get('subject').trim());
+urlEncodedData.append('message', formData.get('message').trim());
+const response = await fetch('https://readdy.ai/api/form/d4a3cd64v2qe61n4ph4g', {
+method: 'POST',
+headers: {
+'Content-Type': 'application/x-www-form-urlencoded',
+},
+body: urlEncodedData.toString()
+});
+if (response.ok) {
+showStatus('Thank you for your message! I\'ll get back to you soon.');
+this.reset();
+messageCount.textContent = '0';
+} else {
+throw new Error('Network response was not ok');
+}
+} catch (error) {
+console.error('Form submission error:', error);
+showStatus('Sorry, there was an error sending your message. Please try again later.', true);
+} finally {
+submitBtn.disabled = false;
+submitBtn.textContent = 'Send Message';
+}
+});
+});
+</script>
+<script id="cv-download">
+document.addEventListener('DOMContentLoaded', function() {
+const downloadButton = document.getElementById('downloadCV');
+function showToast(message) {
+const toast = document.createElement('div');
+toast.className = 'toast';
+toast.innerHTML = `
+<div class="flex items-center gap-3">
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-check-line"></i>
+</div>
+<span>${message}</span>
+</div>
+`;
+document.body.appendChild(toast);
+setTimeout(() => toast.classList.add('show'), 100);
+setTimeout(() => {
+toast.classList.remove('show');
+setTimeout(() => document.body.removeChild(toast), 300);
+}, 3000);
+}
+function generatePDF() {
+const { jsPDF } = window.jspdf;
+const doc = new jsPDF();
+doc.setFontSize(24);
+doc.text('Alex Johnson', 20, 30);
+doc.setFontSize(14);
+doc.text('Full Stack Developer & UI/UX Designer', 20, 45);
+doc.text('alex.johnson@email.com | +1 (555) 123-4567 | San Francisco, CA', 20, 55);
+doc.setFontSize(16);
+doc.text('About', 20, 75);
+doc.setFontSize(11);
+const aboutText = "Passionate Full Stack Developer with over 5 years of experience creating innovative web applications and user experiences. Expertise spans across modern JavaScript frameworks, backend technologies, and UI/UX design principles.";
+const splitAbout = doc.splitTextToSize(aboutText, 170);
+doc.text(splitAbout, 20, 85);
+doc.text('Technical Skills', 20, 110);
+doc.setFontSize(10);
+doc.text('• JavaScript / TypeScript - 95%', 25, 120);
+doc.text('• React / Vue.js - 90%', 25, 130);
+doc.text('• Node.js / Express - 88%', 25, 140);
+doc.text('• Python / Django - 85%', 25, 150);
+doc.text('• MongoDB / PostgreSQL - 82%', 25, 160);
+doc.setFontSize(11);
+doc.text('Work Experience', 20, 180);
+doc.setFontSize(10);
+doc.text('Senior Full Stack Developer - TechCorp Solutions (2022 - Present)', 25, 190);
+doc.text('• Led development of 3 major web applications using React, Node.js, and MongoDB', 30, 200);
+doc.text('• Implemented microservices architecture reducing system response time by 40%', 30, 210);
+doc.text('Full Stack Developer - Digital Innovations Inc (2020 - 2022)', 25, 225);
+doc.text('• Developed and maintained e-commerce platforms serving 10,000+ users', 30, 235);
+doc.text('• Built RESTful APIs and integrated third-party payment systems', 30, 245);
+doc.text('Education', 20, 265);
+doc.text('Master of Science in Software Engineering - UC Berkeley (2019 - 2021)', 25, 275);
+doc.text('Bachelor of Science in Computer Science - Stanford University (2015 - 2019)', 25, 285);
+return doc;
+}
+downloadButton.addEventListener('click', function(e) {
+e.preventDefault();
+try {
+const pdf = generatePDF();
+pdf.save('Alex_Johnson_CV.pdf');
+showToast('CV download started successfully!');
+} catch (error) {
+console.error('Error generating PDF:', error);
+showToast('Error generating CV. Please try again.');
+}
+});
+});
+</script>
+</body>
+</html>
