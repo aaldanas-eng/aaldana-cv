@@ -50,18 +50,80 @@ transition: transform 0.3s ease;
 .toast.show {
 transform: translateX(0);
 }
+.language-dropdown {
+position: relative;
+}
+.language-menu {
+position: absolute;
+top: 100%;
+right: 0;
+background: white;
+border: 1px solid #e5e7eb;
+border-radius: 8px;
+box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+min-width: 150px;
+z-index: 1000;
+opacity: 0;
+visibility: hidden;
+transform: translateY(-10px);
+transition: all 0.3s ease;
+}
+.language-menu.show {
+opacity: 1;
+visibility: visible;
+transform: translateY(0);
+}
+.language-option {
+padding: 12px 16px;
+cursor: pointer;
+transition: background-color 0.2s ease;
+display: flex;
+align-items: center;
+gap: 8px;
+}
+.language-option:hover {
+background-color: #f3f4f6;
+}
+.language-option:first-child {
+border-radius: 8px 8px 0 0;
+}
+.language-option:last-child {
+border-radius: 0 0 8px 8px;
+}
 </style>
 </head>
 <body class="bg-gray-50">
-<div class="relative h-screen bg-cover bg-center bg-no-repeat bg-fixed" style="background-image: url('https://readdy.ai/api/search-image?query=Modern%20professional%20workspace%20with%20clean%20minimalist%20design%2C%20soft%20lighting%2C%20contemporary%20office%20environment%20with%20subtle%20tech%20elements%2C%20clean%20white%20and%20blue%20color%20scheme%2C%20professional%20atmosphere%2C%20high-end%20corporate%20setting%20with%20geometric%20patterns%20and%20modern%20architecture&width=1920&height=1080&seq=hero-bg&orientation=landscape')">
+<div class="fixed top-6 right-6 z-50 language-dropdown">
+<button id="languageToggle" class="flex items-center gap-2 bg-white border border-gray-300 px-4 py-2 rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer">
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-global-line"></i>
+</div>
+<span id="currentLanguage" data-translate="language-current">English</span>
+<div class="w-4 h-4 flex items-center justify-center">
+<i class="ri-arrow-down-s-line"></i>
+</div>
+</button>
+<div id="languageMenu" class="language-menu">
+<div class="language-option" data-lang="en">
+<span class="font-medium" data-translate="language-english">English</span>
+</div>
+<div class="language-option" data-lang="es">
+<span class="font-medium" data-translate="language-spanish">Español</span>
+</div>
+<div class="language-option" data-lang="nl">
+<span class="font-medium" data-translate="language-dutch">Nederlands</span>
+</div>
+</div>
+</div>
+<div class="relative min-h-screen bg-cover bg-center bg-no-repeat bg-fixed" style="background-image: url('https://readdy.ai/api/search-image?query=Modern%20professional%20workspace%20with%20clean%20minimalist%20design%2C%20soft%20lighting%2C%20contemporary%20office%20environment%20with%20subtle%20tech%20elements%2C%20clean%20white%20and%20blue%20color%20scheme%2C%20professional%20atmosphere%2C%20high-end%20corporate%20setting%20with%20geometric%20patterns%20and%20modern%20architecture&width=1920&height=1080&seq=hero-bg&orientation=landscape')">
 <div class="absolute inset-0 bg-white bg-opacity-90"></div>
-<header class="relative z-10 px-6 py-8 h-full flex items-center">
+<header class="relative z-10 px-4 sm:px-6 py-8 min-h-screen flex items-center">
 <div class="max-w-6xl mx-auto w-full">
 <div class="flex flex-col lg:flex-row items-center justify-between">
 <div class="text-center lg:text-left mb-8 lg:mb-0">
-<h1 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-3">Alex Johnson</h1>
-<p class="text-lg lg:text-xl text-gray-600 mb-4">Full Stack Developer & UI/UX Designer</p>
-<div class="flex flex-wrap justify-center lg:justify-start gap-4 text-sm text-gray-600 mb-4">
+<h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-3">Alex Johnson</h1>
+<p class="text-base sm:text-lg lg:text-xl text-gray-600 mb-4" data-translate="hero-title">Full Stack Developer & UI/UX Designer</p>
+<div class="flex flex-wrap justify-center lg:justify-start gap-2 sm:gap-4 text-xs sm:text-sm text-gray-600 mb-4">
 <div class="flex items-center gap-2">
 <div class="w-4 h-4 flex items-center justify-center">
 <i class="ri-mail-line"></i>
@@ -93,146 +155,179 @@ transform: translateX(0);
 </a>
 </div>
 </div>
-<div class="lg:w-64">
-<img src="https://readdy.ai/api/search-image?query=Professional%20headshot%20portrait%20of%20a%20confident%20software%20developer%2C%20clean%20studio%20lighting%2C%20modern%20business%20casual%20attire%2C%20friendly%20approachable%20expression%2C%20high%20quality%20professional%20photography%2C%20neutral%20background&width=400&height=400&seq=profile-photo&orientation=squarish" alt="Alex Johnson" class="w-48 h-48 lg:w-64 lg:h-64 rounded-full object-cover object-top shadow-2xl mx-auto">
+<div class="w-full flex justify-center lg:w-64">
+<img src="https://readdy.ai/api/search-image?query=Professional%20headshot%20portrait%20of%20a%20confident%20software%20developer%2C%20clean%20studio%20lighting%2C%20modern%20business%20casual%20attire%2C%20friendly%20approachable%20expression%2C%20high%20quality%20professional%20photography%2C%20neutral%20background&width=400&height=400&seq=profile-photo&orientation=squarish" alt="Alex Johnson" class="w-32 h-32 sm:w-48 sm:h-48 lg:w-64 lg:h-64 rounded-full object-cover object-top shadow-2xl">
 </div>
 </div>
 </div>
 </header>
 </div>
 <nav class="sticky top-0 z-50 bg-white shadow-md">
-<div class="max-w-6xl mx-auto px-6">
-<div class="flex justify-center space-x-8 py-4">
-<a href="#about" class="nav-link text-gray-700 hover:text-primary font-medium transition-colors">About</a>
-<a href="#experience" class="nav-link text-gray-700 hover:text-primary font-medium transition-colors">Experience</a>
-<a href="#skills" class="nav-link text-gray-700 hover:text-primary font-medium transition-colors">Skills</a>
-<a href="#portfolio" class="nav-link text-gray-700 hover:text-primary font-medium transition-colors">Portfolio</a>
-<a href="#education" class="nav-link text-gray-700 hover:text-primary font-medium transition-colors">Education</a>
-<a href="#contact" class="nav-link text-gray-700 hover:text-primary font-medium transition-colors">Contact</a>
+<div class="max-w-6xl mx-auto px-4 sm:px-6">
+<div class="flex justify-center space-x-2 sm:space-x-4 lg:space-x-8 py-4 overflow-x-auto">
+<a href="#about" class="nav-link text-gray-700 hover:text-primary font-medium transition-colors whitespace-nowrap text-sm sm:text-base" data-translate="nav-about">About</a>
+<a href="#experience" class="nav-link text-gray-700 hover:text-primary font-medium transition-colors whitespace-nowrap text-sm sm:text-base" data-translate="nav-experience">Experience</a>
+<a href="#skills" class="nav-link text-gray-700 hover:text-primary font-medium transition-colors whitespace-nowrap text-sm sm:text-base" data-translate="nav-skills">Skills</a>
+<a href="#portfolio" class="nav-link text-gray-700 hover:text-primary font-medium transition-colors whitespace-nowrap text-sm sm:text-base" data-translate="nav-portfolio">Portfolio</a>
+<a href="#education" class="nav-link text-gray-700 hover:text-primary font-medium transition-colors whitespace-nowrap text-sm sm:text-base" data-translate="nav-education">Education</a>
+<a href="#contact" class="nav-link text-gray-700 hover:text-primary font-medium transition-colors whitespace-nowrap text-sm sm:text-base" data-translate="nav-contact">Contact</a>
 </div>
 </div>
 </nav>
 <main>
-<section id="about" class="py-20 bg-white">
-<div class="max-w-6xl mx-auto px-6">
-<div class="text-center mb-16">
-<h2 class="text-4xl font-bold text-gray-900 mb-4">About Me</h2>
+<section id="about" class="py-12 sm:py-16 lg:py-20 bg-white">
+<div class="max-w-6xl mx-auto px-4 sm:px-6">
+<div class="text-center mb-12 sm:mb-16">
+<h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4" data-translate="about-title">About Me</h2>
 <div class="w-20 h-1 bg-primary mx-auto"></div>
 </div>
-<div class="grid lg:grid-cols-2 gap-12 items-center">
+<div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
 <div>
-<p class="text-lg text-gray-600 leading-relaxed mb-6">
+<p class="text-base sm:text-lg text-gray-600 leading-relaxed mb-6" data-translate="about-paragraph-1">
 I'm a passionate Full Stack Developer with over 5 years of experience creating innovative web applications and user experiences. My expertise spans across modern JavaScript frameworks, backend technologies, and UI/UX design principles.
 </p>
-<p class="text-lg text-gray-600 leading-relaxed mb-6">
+<p class="text-lg text-gray-600 leading-relaxed mb-6" data-translate="about-paragraph-2">
 I believe in writing clean, maintainable code and creating intuitive user interfaces that solve real-world problems. My approach combines technical excellence with creative problem-solving to deliver exceptional digital experiences.
 </p>
-<p class="text-lg text-gray-600 leading-relaxed mb-8">
+<p class="text-lg text-gray-600 leading-relaxed mb-8" data-translate="about-paragraph-3">
 When I'm not coding, you can find me exploring new technologies, contributing to open-source projects, or sharing knowledge with the developer community through blog posts and speaking engagements.
 </p>
 <a href="#" id="downloadCV" class="inline-flex items-center gap-2 bg-primary text-white px-8 py-3 !rounded-button hover:bg-opacity-90 transition-colors whitespace-nowrap">
 <div class="w-5 h-5 flex items-center justify-center">
 <i class="ri-download-line"></i>
 </div>
-Download CV
+<span data-translate="about-download-cv">Download CV</span>
 </a>
 </div>
-<div class="grid grid-cols-2 gap-6">
-<div class="bg-gray-50 p-6 rounded-lg text-center">
-<div class="text-3xl font-bold text-primary mb-2">50+</div>
-<div class="text-gray-600">Projects Completed</div>
+<div class="grid grid-cols-2 gap-4 sm:gap-6">
+<div class="bg-gray-50 p-4 sm:p-6 rounded-lg text-center">
+<div class="text-2xl sm:text-3xl font-bold text-primary mb-2">50+</div>
+<div class="text-sm sm:text-base text-gray-600" data-translate="about-stat-projects">Projects Completed</div>
 </div>
-<div class="bg-gray-50 p-6 rounded-lg text-center">
-<div class="text-3xl font-bold text-primary mb-2">5+</div>
-<div class="text-gray-600">Years Experience</div>
+<div class="bg-gray-50 p-4 sm:p-6 rounded-lg text-center">
+<div class="text-2xl sm:text-3xl font-bold text-primary mb-2">5+</div>
+<div class="text-sm sm:text-base text-gray-600" data-translate="about-stat-experience">Years Experience</div>
 </div>
-<div class="bg-gray-50 p-6 rounded-lg text-center">
-<div class="text-3xl font-bold text-primary mb-2">30+</div>
-<div class="text-gray-600">Happy Clients</div>
+<div class="bg-gray-50 p-4 sm:p-6 rounded-lg text-center">
+<div class="text-2xl sm:text-3xl font-bold text-primary mb-2">30+</div>
+<div class="text-sm sm:text-base text-gray-600" data-translate="about-stat-clients">Happy Clients</div>
 </div>
-<div class="bg-gray-50 p-6 rounded-lg text-center">
-<div class="text-3xl font-bold text-primary mb-2">15+</div>
-<div class="text-gray-600">Technologies</div>
+<div class="bg-gray-50 p-4 sm:p-6 rounded-lg text-center">
+<div class="text-2xl sm:text-3xl font-bold text-primary mb-2">15+</div>
+<div class="text-sm sm:text-base text-gray-600" data-translate="about-stat-technologies">Technologies</div>
 </div>
 </div>
 </div>
 </div>
 </section>
-<section id="experience" class="py-20 bg-gray-50">
-<div class="max-w-6xl mx-auto px-6">
-<div class="text-center mb-16">
-<h2 class="text-4xl font-bold text-gray-900 mb-4">Work Experience</h2>
+<section id="experience" class="py-12 sm:py-16 lg:py-20 bg-gray-50">
+<div class="max-w-6xl mx-auto px-4 sm:px-6">
+<div class="text-center mb-12 sm:mb-16">
+<h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4" data-translate="experience-title">Work Experience</h2>
 <div class="w-20 h-1 bg-primary mx-auto"></div>
 </div>
 <div class="relative">
-<div class="absolute left-8 top-0 bottom-0 w-0.5 bg-gray-300"></div>
-<div class="space-y-12">
-<div class="relative pl-20 timeline-item">
+<div class="absolute left-4 sm:left-8 top-0 bottom-0 w-0.5 bg-gray-300"></div>
+<div class="space-y-8 sm:space-y-12">
+<div class="relative pl-12 sm:pl-20 timeline-item">
 <div class="timeline-line"></div>
-<div class="bg-white p-8 rounded-lg shadow-md">
-<div class="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-4">
-<div>
-<h3 class="text-xl font-bold text-gray-900">Senior Full Stack Developer</h3>
-<p class="text-primary font-medium">TechCorp Solutions</p>
+<div class="bg-white rounded-lg shadow-md overflow-hidden">
+<button class="w-full p-4 sm:p-6 lg:p-8 text-left hover:bg-gray-50 transition-colors experience-toggle" data-target="experience-1">
+<div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+<div class="flex-1">
+<div class="flex items-center gap-3 mb-2">
+<h3 class="text-lg sm:text-xl font-bold text-gray-900" data-translate="experience-job-1-title">Senior Full Stack Developer</h3>
+<div class="w-5 h-5 flex items-center justify-center transition-transform duration-300 experience-icon">
+<i class="ri-arrow-down-s-line"></i>
 </div>
-<span class="text-gray-500 font-medium">2022 - Present</span>
 </div>
-<ul class="text-gray-600 space-y-2">
-<li>• Led development of 3 major web applications using React, Node.js, and MongoDB</li>
-<li>• Implemented microservices architecture reducing system response time by 40%</li>
-<li>• Mentored junior developers and conducted code reviews</li>
-<li>• Collaborated with UX team to improve user engagement by 60%</li>
+<p class="text-primary font-medium" data-translate="experience-job-1-company">TechCorp Solutions</p>
+</div>
+<span class="text-gray-500 font-medium mt-2 lg:mt-0" data-translate="experience-job-1-period">2022 - Present</span>
+</div>
+</button>
+<div id="experience-1" class="experience-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+<div class="px-4 sm:px-6 lg:px-8 pb-4 sm:pb-6 lg:pb-8">
+<ul class="text-sm sm:text-base text-gray-600 space-y-2">
+<li data-translate="experience-job-1-desc-1">• Led development of 3 major web applications using React, Node.js, and MongoDB</li>
+<li data-translate="experience-job-1-desc-2">• Implemented microservices architecture reducing system response time by 40%</li>
+<li data-translate="experience-job-1-desc-3">• Mentored junior developers and conducted code reviews</li>
+<li data-translate="experience-job-1-desc-4">• Collaborated with UX team to improve user engagement by 60%</li>
 </ul>
 </div>
 </div>
-<div class="relative pl-20 timeline-item">
+</div>
+</div>
+<div class="relative pl-12 sm:pl-20 timeline-item">
 <div class="timeline-line"></div>
-<div class="bg-white p-8 rounded-lg shadow-md">
-<div class="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-4">
-<div>
-<h3 class="text-xl font-bold text-gray-900">Full Stack Developer</h3>
-<p class="text-primary font-medium">Digital Innovations Inc</p>
+<div class="bg-white rounded-lg shadow-md overflow-hidden">
+<button class="w-full p-4 sm:p-6 lg:p-8 text-left hover:bg-gray-50 transition-colors experience-toggle" data-target="experience-2">
+<div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+<div class="flex-1">
+<div class="flex items-center gap-3 mb-2">
+<h3 class="text-lg sm:text-xl font-bold text-gray-900" data-translate="experience-job-2-title">Full Stack Developer</h3>
+<div class="w-5 h-5 flex items-center justify-center transition-transform duration-300 experience-icon">
+<i class="ri-arrow-down-s-line"></i>
 </div>
-<span class="text-gray-500 font-medium">2020 - 2022</span>
 </div>
-<ul class="text-gray-600 space-y-2">
-<li>• Developed and maintained e-commerce platforms serving 10,000+ users</li>
-<li>• Built RESTful APIs and integrated third-party payment systems</li>
-<li>• Optimized database queries improving application performance by 35%</li>
-<li>• Implemented automated testing reducing bug reports by 50%</li>
+<p class="text-primary font-medium" data-translate="experience-job-2-company">Digital Innovations Inc</p>
+</div>
+<span class="text-gray-500 font-medium mt-2 lg:mt-0" data-translate="experience-job-2-period">2020 - 2022</span>
+</div>
+</button>
+<div id="experience-2" class="experience-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+<div class="px-4 sm:px-6 lg:px-8 pb-4 sm:pb-6 lg:pb-8">
+<ul class="text-sm sm:text-base text-gray-600 space-y-2">
+<li data-translate="experience-job-2-desc-1">• Developed and maintained e-commerce platforms serving 10,000+ users</li>
+<li data-translate="experience-job-2-desc-2">• Built RESTful APIs and integrated third-party payment systems</li>
+<li data-translate="experience-job-2-desc-3">• Optimized database queries improving application performance by 35%</li>
+<li data-translate="experience-job-2-desc-4">• Implemented automated testing reducing bug reports by 50%</li>
 </ul>
 </div>
 </div>
-<div class="relative pl-20 timeline-item">
-<div class="bg-white p-8 rounded-lg shadow-md">
-<div class="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-4">
-<div>
-<h3 class="text-xl font-bold text-gray-900">Frontend Developer</h3>
-<p class="text-primary font-medium">StartupHub</p>
 </div>
-<span class="text-gray-500 font-medium">2019 - 2020</span>
 </div>
-<ul class="text-gray-600 space-y-2">
-<li>• Created responsive web applications using Vue.js and CSS frameworks</li>
-<li>• Collaborated with designers to implement pixel-perfect UI components</li>
-<li>• Improved website loading speed by 45% through optimization techniques</li>
-<li>• Participated in agile development processes and sprint planning</li>
+<div class="relative pl-12 sm:pl-20 timeline-item">
+<div class="bg-white rounded-lg shadow-md overflow-hidden">
+<button class="w-full p-4 sm:p-6 lg:p-8 text-left hover:bg-gray-50 transition-colors experience-toggle" data-target="experience-3">
+<div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+<div class="flex-1">
+<div class="flex items-center gap-3 mb-2">
+<h3 class="text-lg sm:text-xl font-bold text-gray-900" data-translate="experience-job-3-title">Frontend Developer</h3>
+<div class="w-5 h-5 flex items-center justify-center transition-transform duration-300 experience-icon">
+<i class="ri-arrow-down-s-line"></i>
+</div>
+</div>
+<p class="text-primary font-medium" data-translate="experience-job-3-company">StartupHub</p>
+</div>
+<span class="text-gray-500 font-medium mt-2 lg:mt-0" data-translate="experience-job-3-period">2019 - 2020</span>
+</div>
+</button>
+<div id="experience-3" class="experience-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+<div class="px-4 sm:px-6 lg:px-8 pb-4 sm:pb-6 lg:pb-8">
+<ul class="text-sm sm:text-base text-gray-600 space-y-2">
+<li data-translate="experience-job-3-desc-1">• Created responsive web applications using Vue.js and CSS frameworks</li>
+<li data-translate="experience-job-3-desc-2">• Collaborated with designers to implement pixel-perfect UI components</li>
+<li data-translate="experience-job-3-desc-3">• Improved website loading speed by 45% through optimization techniques</li>
+<li data-translate="experience-job-3-desc-4">• Participated in agile development processes and sprint planning</li>
 </ul>
+</div>
+</div>
 </div>
 </div>
 </div>
 </div>
 </div>
 </section>
-<section id="skills" class="py-20 bg-white">
-<div class="max-w-6xl mx-auto px-6">
-<div class="text-center mb-16">
-<h2 class="text-4xl font-bold text-gray-900 mb-4">Skills & Technologies</h2>
+<section id="skills" class="py-12 sm:py-16 lg:py-20 bg-white">
+<div class="max-w-6xl mx-auto px-4 sm:px-6">
+<div class="text-center mb-12 sm:mb-16">
+<h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4" data-translate="skills-title">Skills & Technologies</h2>
 <div class="w-20 h-1 bg-primary mx-auto"></div>
 </div>
-<div class="grid lg:grid-cols-2 gap-12">
+<div class="grid lg:grid-cols-2 gap-8 lg:gap-12">
 <div>
-<h3 class="text-2xl font-bold text-gray-900 mb-8">Technical Skills</h3>
+<h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-6 sm:mb-8" data-translate="skills-technical">Technical Skills</h3>
 <div class="space-y-6">
 <div>
 <div class="flex justify-between mb-2">
@@ -282,13 +377,13 @@ Download CV
 </div>
 </div>
 <div>
-<h3 class="text-2xl font-bold text-gray-900 mb-8">Tools & Frameworks</h3>
-<div class="grid grid-cols-3 gap-6">
-<div class="text-center p-4 bg-gray-50 rounded-lg">
-<div class="w-12 h-12 flex items-center justify-center mx-auto mb-3 text-2xl text-primary">
+<h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-6 sm:mb-8" data-translate="skills-tools">Tools & Frameworks</h3>
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-6">
+<div class="text-center p-3 sm:p-4 bg-gray-50 rounded-lg">
+<div class="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center mx-auto mb-2 sm:mb-3 text-xl sm:text-2xl text-primary">
 <i class="ri-reactjs-line"></i>
 </div>
-<span class="text-sm font-medium text-gray-700">React</span>
+<span class="text-xs sm:text-sm font-medium text-gray-700">React</span>
 </div>
 <div class="text-center p-4 bg-gray-50 rounded-lg">
 <div class="w-12 h-12 flex items-center justify-center mx-auto mb-3 text-2xl text-primary">
@@ -325,41 +420,41 @@ Download CV
 </div>
 </div>
 </section>
-<section id="portfolio" class="py-20 bg-gray-50">
-<div class="max-w-6xl mx-auto px-6">
-<div class="text-center mb-16">
-<h2 class="text-4xl font-bold text-gray-900 mb-4">Portfolio</h2>
+<section id="portfolio" class="py-12 sm:py-16 lg:py-20 bg-gray-50">
+<div class="max-w-6xl mx-auto px-4 sm:px-6">
+<div class="text-center mb-12 sm:mb-16">
+<h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4" data-translate="portfolio-title">Portfolio</h2>
 <div class="w-20 h-1 bg-primary mx-auto mb-8"></div>
-<div class="flex justify-center gap-4 mb-8">
-<button class="filter-btn bg-primary text-white px-6 py-2 !rounded-button whitespace-nowrap" data-filter="all">All Projects</button>
-<button class="filter-btn bg-gray-200 text-gray-700 px-6 py-2 !rounded-button hover:bg-gray-300 whitespace-nowrap" data-filter="web">Web Apps</button>
-<button class="filter-btn bg-gray-200 text-gray-700 px-6 py-2 !rounded-button hover:bg-gray-300 whitespace-nowrap" data-filter="mobile">Mobile</button>
-<button class="filter-btn bg-gray-200 text-gray-700 px-6 py-2 !rounded-button hover:bg-gray-300 whitespace-nowrap" data-filter="design">UI/UX</button>
+<div class="flex flex-wrap justify-center gap-2 sm:gap-4 mb-8">
+<button class="filter-btn bg-primary text-white px-4 sm:px-6 py-2 !rounded-button whitespace-nowrap text-sm sm:text-base" data-filter="all" data-translate="portfolio-filter-all">All Projects</button>
+<button class="filter-btn bg-gray-200 text-gray-700 px-4 sm:px-6 py-2 !rounded-button hover:bg-gray-300 whitespace-nowrap text-sm sm:text-base" data-filter="web" data-translate="portfolio-filter-web">Web Apps</button>
+<button class="filter-btn bg-gray-200 text-gray-700 px-4 sm:px-6 py-2 !rounded-button hover:bg-gray-300 whitespace-nowrap text-sm sm:text-base" data-filter="mobile" data-translate="portfolio-filter-mobile">Mobile</button>
+<button class="filter-btn bg-gray-200 text-gray-700 px-4 sm:px-6 py-2 !rounded-button hover:bg-gray-300 whitespace-nowrap text-sm sm:text-base" data-filter="design" data-translate="portfolio-filter-design">UI/UX</button>
 </div>
 </div>
-<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
 <div class="project-card bg-white rounded-lg shadow-md overflow-hidden" data-category="web">
-<img src="https://readdy.ai/api/search-image?query=Modern%20e-commerce%20web%20application%20interface%20design%2C%20clean%20product%20listing%20page%20with%20shopping%20cart%2C%20professional%20UI%20design%2C%20contemporary%20web%20layout%2C%20blue%20and%20white%20color%20scheme%2C%20high%20quality%20web%20design%20mockup&width=400&height=250&seq=project-1&orientation=landscape" alt="E-commerce Platform" class="w-full h-48 object-cover object-top">
-<div class="p-6">
-<h3 class="text-xl font-bold text-gray-900 mb-2">E-commerce Platform</h3>
-<p class="text-gray-600 mb-4">A full-featured online shopping platform built with React and Node.js, featuring payment integration and inventory management.</p>
-<div class="flex gap-2 mb-4">
-<span class="px-3 py-1 bg-primary bg-opacity-10 text-primary text-sm rounded-full">React</span>
-<span class="px-3 py-1 bg-secondary bg-opacity-10 text-secondary text-sm rounded-full">Node.js</span>
-<span class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">MongoDB</span>
+<img src="https://readdy.ai/api/search-image?query=Modern%20e-commerce%20web%20application%20interface%20design%2C%20clean%20product%20listing%20page%20with%20shopping%20cart%2C%20professional%20UI%20design%2C%20contemporary%20web%20layout%2C%20blue%20and%20white%20color%20scheme%2C%20high%20quality%20web%20design%20mockup&width=400&height=250&seq=project-1&orientation=landscape" alt="E-commerce Platform" class="w-full h-40 sm:h-48 object-cover object-top">
+<div class="p-4 sm:p-6">
+<h3 class="text-lg sm:text-xl font-bold text-gray-900 mb-2" data-translate="portfolio-project-1-title">E-commerce Platform</h3>
+<p class="text-sm sm:text-base text-gray-600 mb-4" data-translate="portfolio-project-1-desc">A full-featured online shopping platform built with React and Node.js, featuring payment integration and inventory management.</p>
+<div class="flex flex-wrap gap-2 mb-4">
+<span class="px-2 sm:px-3 py-1 bg-primary bg-opacity-10 text-primary text-xs sm:text-sm rounded-full">React</span>
+<span class="px-2 sm:px-3 py-1 bg-secondary bg-opacity-10 text-secondary text-xs sm:text-sm rounded-full">Node.js</span>
+<span class="px-2 sm:px-3 py-1 bg-gray-100 text-gray-600 text-xs sm:text-sm rounded-full">MongoDB</span>
 </div>
 <div class="flex gap-3">
 <a href="#" class="flex items-center gap-2 text-primary hover:text-opacity-80">
 <div class="w-4 h-4 flex items-center justify-center">
 <i class="ri-external-link-line"></i>
 </div>
-Live Demo
+<span data-translate="portfolio-live-demo">Live Demo</span>
 </a>
 <a href="#" class="flex items-center gap-2 text-gray-600 hover:text-gray-800">
 <div class="w-4 h-4 flex items-center justify-center">
 <i class="ri-github-line"></i>
 </div>
-Code
+<span data-translate="portfolio-code">Code</span>
 </a>
 </div>
 </div>
@@ -367,8 +462,8 @@ Code
 <div class="project-card bg-white rounded-lg shadow-md overflow-hidden" data-category="mobile">
 <img src="https://readdy.ai/api/search-image?query=Mobile%20task%20management%20app%20interface%20design%2C%20clean%20todo%20list%20application%2C%20modern%20mobile%20UI%20design%2C%20productivity%20app%20mockup%2C%20minimalist%20design%20with%20blue%20accents%2C%20professional%20mobile%20app%20design&width=400&height=250&seq=project-2&orientation=landscape" alt="Task Management App" class="w-full h-48 object-cover object-top">
 <div class="p-6">
-<h3 class="text-xl font-bold text-gray-900 mb-2">Task Management App</h3>
-<p class="text-gray-600 mb-4">A productivity mobile application with real-time synchronization, team collaboration features, and intuitive task organization.</p>
+<h3 class="text-xl font-bold text-gray-900 mb-2" data-translate="portfolio-project-2-title">Task Management App</h3>
+<p class="text-gray-600 mb-4" data-translate="portfolio-project-2-desc">A productivity mobile application with real-time synchronization, team collaboration features, and intuitive task organization.</p>
 <div class="flex gap-2 mb-4">
 <span class="px-3 py-1 bg-primary bg-opacity-10 text-primary text-sm rounded-full">React Native</span>
 <span class="px-3 py-1 bg-secondary bg-opacity-10 text-secondary text-sm rounded-full">Firebase</span>
@@ -378,13 +473,13 @@ Code
 <div class="w-4 h-4 flex items-center justify-center">
 <i class="ri-external-link-line"></i>
 </div>
-Live Demo
+<span data-translate="portfolio-live-demo">Live Demo</span>
 </a>
 <a href="#" class="flex items-center gap-2 text-gray-600 hover:text-gray-800">
 <div class="w-4 h-4 flex items-center justify-center">
 <i class="ri-github-line"></i>
 </div>
-Code
+<span data-translate="portfolio-code">Code</span>
 </a>
 </div>
 </div>
@@ -392,8 +487,8 @@ Code
 <div class="project-card bg-white rounded-lg shadow-md overflow-hidden" data-category="web">
 <img src="https://readdy.ai/api/search-image?query=Analytics%20dashboard%20web%20interface%20design%2C%20data%20visualization%20charts%20and%20graphs%2C%20modern%20business%20intelligence%20dashboard%2C%20professional%20web%20application%20UI%2C%20clean%20data%20presentation%20with%20blue%20color%20scheme&width=400&height=250&seq=project-3&orientation=landscape" alt="Analytics Dashboard" class="w-full h-48 object-cover object-top">
 <div class="p-6">
-<h3 class="text-xl font-bold text-gray-900 mb-2">Analytics Dashboard</h3>
-<p class="text-gray-600 mb-4">A comprehensive business intelligence dashboard with interactive charts, real-time data updates, and customizable reports.</p>
+<h3 class="text-xl font-bold text-gray-900 mb-2" data-translate="portfolio-project-3-title">Analytics Dashboard</h3>
+<p class="text-gray-600 mb-4" data-translate="portfolio-project-3-desc">A comprehensive business intelligence dashboard with interactive charts, real-time data updates, and customizable reports.</p>
 <div class="flex gap-2 mb-4">
 <span class="px-3 py-1 bg-primary bg-opacity-10 text-primary text-sm rounded-full">Vue.js</span>
 <span class="px-3 py-1 bg-secondary bg-opacity-10 text-secondary text-sm rounded-full">Python</span>
@@ -404,13 +499,13 @@ Code
 <div class="w-4 h-4 flex items-center justify-center">
 <i class="ri-external-link-line"></i>
 </div>
-Live Demo
+<span data-translate="portfolio-live-demo">Live Demo</span>
 </a>
 <a href="#" class="flex items-center gap-2 text-gray-600 hover:text-gray-800">
 <div class="w-4 h-4 flex items-center justify-center">
 <i class="ri-github-line"></i>
 </div>
-Code
+<span data-translate="portfolio-code">Code</span>
 </a>
 </div>
 </div>
@@ -418,8 +513,8 @@ Code
 <div class="project-card bg-white rounded-lg shadow-md overflow-hidden" data-category="design">
 <img src="https://readdy.ai/api/search-image?query=Modern%20banking%20mobile%20app%20UI%20design%20mockup%2C%20financial%20application%20interface%2C%20clean%20mobile%20banking%20design%2C%20professional%20fintech%20app%20design%2C%20blue%20and%20white%20color%20scheme%2C%20elegant%20mobile%20interface&width=400&height=250&seq=project-4&orientation=landscape" alt="Banking App Design" class="w-full h-48 object-cover object-top">
 <div class="p-6">
-<h3 class="text-xl font-bold text-gray-900 mb-2">Banking App Design</h3>
-<p class="text-gray-600 mb-4">Complete UI/UX design for a modern banking application, focusing on security, accessibility, and user experience.</p>
+<h3 class="text-xl font-bold text-gray-900 mb-2" data-translate="portfolio-project-4-title">Banking App Design</h3>
+<p class="text-gray-600 mb-4" data-translate="portfolio-project-4-desc">Complete UI/UX design for a modern banking application, focusing on security, accessibility, and user experience.</p>
 <div class="flex gap-2 mb-4">
 <span class="px-3 py-1 bg-primary bg-opacity-10 text-primary text-sm rounded-full">Figma</span>
 <span class="px-3 py-1 bg-secondary bg-opacity-10 text-secondary text-sm rounded-full">Prototyping</span>
@@ -429,13 +524,13 @@ Code
 <div class="w-4 h-4 flex items-center justify-center">
 <i class="ri-external-link-line"></i>
 </div>
-View Design
+<span data-translate="portfolio-view-design">View Design</span>
 </a>
 <a href="#" class="flex items-center gap-2 text-gray-600 hover:text-gray-800">
 <div class="w-4 h-4 flex items-center justify-center">
 <i class="ri-file-line"></i>
 </div>
-Case Study
+<span data-translate="portfolio-case-study">Case Study</span>
 </a>
 </div>
 </div>
@@ -443,8 +538,8 @@ Case Study
 <div class="project-card bg-white rounded-lg shadow-md overflow-hidden" data-category="web">
 <img src="https://readdy.ai/api/search-image?query=Social%20media%20web%20platform%20interface%20design%2C%20modern%20social%20networking%20application%2C%20clean%20feed%20layout%20with%20posts%20and%20interactions%2C%20contemporary%20web%20design%2C%20blue%20accent%20colors%2C%20professional%20social%20platform%20UI&width=400&height=250&seq=project-5&orientation=landscape" alt="Social Media Platform" class="w-full h-48 object-cover object-top">
 <div class="p-6">
-<h3 class="text-xl font-bold text-gray-900 mb-2">Social Media Platform</h3>
-<p class="text-gray-600 mb-4">A modern social networking platform with real-time messaging, content sharing, and advanced privacy controls.</p>
+<h3 class="text-xl font-bold text-gray-900 mb-2" data-translate="portfolio-project-5-title">Social Media Platform</h3>
+<p class="text-gray-600 mb-4" data-translate="portfolio-project-5-desc">A modern social networking platform with real-time messaging, content sharing, and advanced privacy controls.</p>
 <div class="flex gap-2 mb-4">
 <span class="px-3 py-1 bg-primary bg-opacity-10 text-primary text-sm rounded-full">Next.js</span>
 <span class="px-3 py-1 bg-secondary bg-opacity-10 text-secondary text-sm rounded-full">Socket.io</span>
@@ -455,13 +550,13 @@ Case Study
 <div class="w-4 h-4 flex items-center justify-center">
 <i class="ri-external-link-line"></i>
 </div>
-Live Demo
+<span data-translate="portfolio-live-demo">Live Demo</span>
 </a>
 <a href="#" class="flex items-center gap-2 text-gray-600 hover:text-gray-800">
 <div class="w-4 h-4 flex items-center justify-center">
 <i class="ri-github-line"></i>
 </div>
-Code
+<span data-translate="portfolio-code">Code</span>
 </a>
 </div>
 </div>
@@ -469,8 +564,8 @@ Code
 <div class="project-card bg-white rounded-lg shadow-md overflow-hidden" data-category="design">
 <img src="https://readdy.ai/api/search-image?query=Modern%20fitness%20tracking%20mobile%20app%20UI%20design%2C%20health%20and%20wellness%20application%20interface%2C%20workout%20tracking%20design%2C%20clean%20mobile%20app%20mockup%2C%20blue%20and%20green%20color%20scheme%2C%20professional%20fitness%20app%20design&width=400&height=250&seq=project-6&orientation=landscape" alt="Fitness App Design" class="w-full h-48 object-cover object-top">
 <div class="p-6">
-<h3 class="text-xl font-bold text-gray-900 mb-2">Fitness App Design</h3>
-<p class="text-gray-600 mb-4">Complete design system for a fitness tracking application, including workout plans, progress tracking, and social features.</p>
+<h3 class="text-xl font-bold text-gray-900 mb-2" data-translate="portfolio-project-6-title">Fitness App Design</h3>
+<p class="text-gray-600 mb-4" data-translate="portfolio-project-6-desc">Complete design system for a fitness tracking application, including workout plans, progress tracking, and social features.</p>
 <div class="flex gap-2 mb-4">
 <span class="px-3 py-1 bg-primary bg-opacity-10 text-primary text-sm rounded-full">Adobe XD</span>
 <span class="px-3 py-1 bg-secondary bg-opacity-10 text-secondary text-sm rounded-full">User Research</span>
@@ -480,13 +575,13 @@ Code
 <div class="w-4 h-4 flex items-center justify-center">
 <i class="ri-external-link-line"></i>
 </div>
-View Design
+<span data-translate="portfolio-view-design">View Design</span>
 </a>
 <a href="#" class="flex items-center gap-2 text-gray-600 hover:text-gray-800">
 <div class="w-4 h-4 flex items-center justify-center">
 <i class="ri-file-line"></i>
 </div>
-Case Study
+<span data-translate="portfolio-case-study">Case Study</span>
 </a>
 </div>
 </div>
@@ -494,58 +589,40 @@ Case Study
 </div>
 </div>
 </section>
-<section id="education" class="py-20 bg-white">
-<div class="max-w-6xl mx-auto px-6">
-<div class="text-center mb-16">
-<h2 class="text-4xl font-bold text-gray-900 mb-4">Education & Certifications</h2>
+<section id="education" class="py-12 sm:py-16 lg:py-20 bg-white">
+<div class="max-w-6xl mx-auto px-4 sm:px-6">
+<div class="text-center mb-12 sm:mb-16">
+<h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4" data-translate="education-title">Education & Certifications</h2>
 <div class="w-20 h-1 bg-primary mx-auto"></div>
 </div>
-<div class="grid lg:grid-cols-2 gap-12">
+<div class="grid lg:grid-cols-2 gap-8 lg:gap-12">
 <div>
-<h3 class="text-2xl font-bold text-gray-900 mb-8">Education</h3>
+<h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-6 sm:mb-8" data-translate="education-subtitle">Education</h3>
 <div class="space-y-6">
-<div class="bg-gray-50 p-6 rounded-lg">
-<h4 class="text-xl font-bold text-gray-900 mb-2">Bachelor of Science in Computer Science</h4>
-<p class="text-primary font-medium mb-2">Stanford University</p>
-<p class="text-gray-500 mb-3">2015 - 2019</p>
-<p class="text-gray-600">Graduated Magna Cum Laude with focus on Software Engineering and Human-Computer Interaction. Relevant coursework: Data Structures, Algorithms, Web Development, Database Systems.</p>
+<div class="bg-gray-50 p-4 sm:p-6 rounded-lg">
+<h4 class="text-lg sm:text-xl font-bold text-gray-900 mb-2" data-translate="education-degree-1">Bachelor of Science in Computer Science</h4>
+<p class="text-primary font-medium mb-2" data-translate="education-university-1">Stanford University</p>
+<p class="text-sm sm:text-base text-gray-500 mb-3" data-translate="education-period-1">2015 - 2019</p>
+<p class="text-sm sm:text-base text-gray-600" data-translate="education-desc-1">Graduated Magna Cum Laude with focus on Software Engineering and Human-Computer Interaction. Relevant coursework: Data Structures, Algorithms, Web Development, Database Systems.</p>
 </div>
 <div class="bg-gray-50 p-6 rounded-lg">
-<h4 class="text-xl font-bold text-gray-900 mb-2">Master of Science in Software Engineering</h4>
-<p class="text-primary font-medium mb-2">UC Berkeley</p>
-<p class="text-gray-500 mb-3">2019 - 2021</p>
-<p class="text-gray-600">Specialized in Advanced Software Architecture and Machine Learning Applications. Thesis: "Scalable Web Applications using Microservices Architecture".</p>
+<h4 class="text-xl font-bold text-gray-900 mb-2" data-translate="education-degree-2">Master of Science in Software Engineering</h4>
+<p class="text-primary font-medium mb-2" data-translate="education-university-2">UC Berkeley</p>
+<p class="text-gray-500 mb-3" data-translate="education-period-2">2019 - 2021</p>
+<p class="text-gray-600" data-translate="education-desc-2">Specialized in Advanced Software Architecture and Machine Learning Applications. Thesis: "Scalable Web Applications using Microservices Architecture".</p>
 </div>
 </div>
 </div>
 <div>
-<h3 class="text-2xl font-bold text-gray-900 mb-8">Certifications</h3>
+<h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-6 sm:mb-8" data-translate="education-certifications">Certifications</h3>
 <div class="space-y-4">
-<div class="flex items-center gap-4 p-4 bg-gray-50 rounded-lg">
-<div class="w-12 h-12 flex items-center justify-center bg-primary text-white rounded-full">
-<i class="ri-award-line"></i>
+<div class="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-gray-50 rounded-lg">
+<div class="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center bg-primary text-white rounded-full flex-shrink-0">
+<i class="ri-award-line text-sm sm:text-base"></i>
 </div>
 <div>
-<h4 class="font-bold text-gray-900">AWS Certified Solutions Architect</h4>
-<p class="text-gray-500">Amazon Web Services • 2023</p>
-</div>
-</div>
-<div class="flex items-center gap-4 p-4 bg-gray-50 rounded-lg">
-<div class="w-12 h-12 flex items-center justify-center bg-secondary text-white rounded-full">
-<i class="ri-award-line"></i>
-</div>
-<div>
-<h4 class="font-bold text-gray-900">Google Cloud Professional Developer</h4>
-<p class="text-gray-500">Google Cloud Platform • 2022</p>
-</div>
-</div>
-<div class="flex items-center gap-4 p-4 bg-gray-50 rounded-lg">
-<div class="w-12 h-12 flex items-center justify-center bg-primary text-white rounded-full">
-<i class="ri-award-line"></i>
-</div>
-<div>
-<h4 class="font-bold text-gray-900">Certified Kubernetes Administrator</h4>
-<p class="text-gray-500">Cloud Native Computing Foundation • 2022</p>
+<h4 class="text-sm sm:text-base font-bold text-gray-900" data-translate="education-cert-1">AWS Certified Solutions Architect</h4>
+<p class="text-xs sm:text-sm text-gray-500" data-translate="education-cert-1-issuer">Amazon Web Services • 2023</p>
 </div>
 </div>
 <div class="flex items-center gap-4 p-4 bg-gray-50 rounded-lg">
@@ -553,8 +630,26 @@ Case Study
 <i class="ri-award-line"></i>
 </div>
 <div>
-<h4 class="font-bold text-gray-900">MongoDB Certified Developer</h4>
-<p class="text-gray-500">MongoDB University • 2021</p>
+<h4 class="font-bold text-gray-900" data-translate="education-cert-2">Google Cloud Professional Developer</h4>
+<p class="text-gray-500" data-translate="education-cert-2-issuer">Google Cloud Platform • 2022</p>
+</div>
+</div>
+<div class="flex items-center gap-4 p-4 bg-gray-50 rounded-lg">
+<div class="w-12 h-12 flex items-center justify-center bg-primary text-white rounded-full">
+<i class="ri-award-line"></i>
+</div>
+<div>
+<h4 class="font-bold text-gray-900" data-translate="education-cert-3">Certified Kubernetes Administrator</h4>
+<p class="text-gray-500" data-translate="education-cert-3-issuer">Cloud Native Computing Foundation • 2022</p>
+</div>
+</div>
+<div class="flex items-center gap-4 p-4 bg-gray-50 rounded-lg">
+<div class="w-12 h-12 flex items-center justify-center bg-secondary text-white rounded-full">
+<i class="ri-award-line"></i>
+</div>
+<div>
+<h4 class="font-bold text-gray-900" data-translate="education-cert-4">MongoDB Certified Developer</h4>
+<p class="text-gray-500" data-translate="education-cert-4-issuer">MongoDB University • 2021</p>
 </div>
 </div>
 </div>
@@ -562,26 +657,26 @@ Case Study
 </div>
 </div>
 </section>
-<section id="contact" class="py-20 bg-gray-50">
-<div class="max-w-6xl mx-auto px-6">
-<div class="text-center mb-16">
-<h2 class="text-4xl font-bold text-gray-900 mb-4">Get In Touch</h2>
+<section id="contact" class="py-12 sm:py-16 lg:py-20 bg-gray-50">
+<div class="max-w-6xl mx-auto px-4 sm:px-6">
+<div class="text-center mb-12 sm:mb-16">
+<h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4" data-translate="contact-title">Get In Touch</h2>
 <div class="w-20 h-1 bg-primary mx-auto mb-6"></div>
-<p class="text-lg text-gray-600 max-w-2xl mx-auto">
+<p class="text-lg text-gray-600 max-w-2xl mx-auto" data-translate="contact-description">
 I'm always interested in new opportunities and exciting projects. Whether you have a question or just want to say hello, feel free to reach out!
 </p>
 </div>
-<div class="grid lg:grid-cols-2 gap-12">
-<div>
-<h3 class="text-2xl font-bold text-gray-900 mb-8">Contact Information</h3>
+<div class="grid lg:grid-cols-2 gap-8 lg:gap-12">
+<div class="order-2 lg:order-1">
+<h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-6 sm:mb-8" data-translate="contact-info-title">Contact Information</h3>
 <div class="space-y-6">
-<div class="flex items-center gap-4">
-<div class="w-12 h-12 flex items-center justify-center bg-primary text-white rounded-full">
-<i class="ri-mail-line"></i>
+<div class="flex items-center gap-3 sm:gap-4">
+<div class="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center bg-primary text-white rounded-full flex-shrink-0">
+<i class="ri-mail-line text-sm sm:text-base"></i>
 </div>
 <div>
-<h4 class="font-medium text-gray-900">Email</h4>
-<p class="text-gray-600">alex.johnson@email.com</p>
+<h4 class="text-sm sm:text-base font-medium text-gray-900" data-translate="contact-email-label">Email</h4>
+<p class="text-sm sm:text-base text-gray-600">alex.johnson@email.com</p>
 </div>
 </div>
 <div class="flex items-center gap-4">
@@ -589,7 +684,7 @@ I'm always interested in new opportunities and exciting projects. Whether you ha
 <i class="ri-phone-line"></i>
 </div>
 <div>
-<h4 class="font-medium text-gray-900">Phone</h4>
+<h4 class="font-medium text-gray-900" data-translate="contact-phone-label">Phone</h4>
 <p class="text-gray-600">+1 (555) 123-4567</p>
 </div>
 </div>
@@ -598,13 +693,13 @@ I'm always interested in new opportunities and exciting projects. Whether you ha
 <i class="ri-map-pin-line"></i>
 </div>
 <div>
-<h4 class="font-medium text-gray-900">Location</h4>
+<h4 class="font-medium text-gray-900" data-translate="contact-location-label">Location</h4>
 <p class="text-gray-600">San Francisco, CA, USA</p>
 </div>
 </div>
 </div>
 <div class="mt-8">
-<h4 class="font-medium text-gray-900 mb-4">Follow Me</h4>
+<h4 class="font-medium text-gray-900 mb-4" data-translate="contact-follow">Follow Me</h4>
 <div class="flex gap-4">
 <a href="#" class="w-10 h-10 flex items-center justify-center bg-primary text-white rounded-full hover:bg-opacity-80 transition-colors">
 <i class="ri-linkedin-fill"></i>
@@ -621,30 +716,30 @@ I'm always interested in new opportunities and exciting projects. Whether you ha
 </div>
 </div>
 </div>
-<div>
-<form id="contact-form" data-readdy-form class="bg-white p-8 rounded-lg shadow-md">
+<div class="order-1 lg:order-2">
+<form id="contact-form" data-readdy-form class="bg-white p-4 sm:p-6 lg:p-8 rounded-lg shadow-md">
 <div class="grid md:grid-cols-2 gap-6 mb-6">
 <div>
-<label for="name" class="block text-sm font-medium text-gray-700 mb-2">Name</label>
-<input type="text" id="name" name="name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-sm" placeholder="Your Name">
+<label for="name" class="block text-sm font-medium text-gray-700 mb-2" data-translate="contact-form-name">Name</label>
+<input type="text" id="name" name="name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-sm" data-translate="contact-form-name-placeholder" placeholder="Your Name">
 </div>
 <div>
-<label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
-<input type="email" id="email" name="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-sm" placeholder="your@email.com">
+<label for="email" class="block text-sm font-medium text-gray-700 mb-2" data-translate="contact-form-email">Email</label>
+<input type="email" id="email" name="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-sm" data-translate="contact-form-email-placeholder" placeholder="your@email.com">
 </div>
 </div>
 <div class="mb-6">
-<label for="subject" class="block text-sm font-medium text-gray-700 mb-2">Subject</label>
-<input type="text" id="subject" name="subject" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-sm" placeholder="Project Inquiry">
+<label for="subject" class="block text-sm font-medium text-gray-700 mb-2" data-translate="contact-form-subject">Subject</label>
+<input type="text" id="subject" name="subject" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-sm" data-translate="contact-form-subject-placeholder" placeholder="Project Inquiry">
 </div>
 <div class="mb-6">
-<label for="message" class="block text-sm font-medium text-gray-700 mb-2">Message</label>
-<textarea id="message" name="message" rows="5" maxlength="500" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent resize-none text-sm" placeholder="Tell me about your project..."></textarea>
+<label for="message" class="block text-sm font-medium text-gray-700 mb-2" data-translate="contact-form-message">Message</label>
+<textarea id="message" name="message" rows="5" maxlength="500" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent resize-none text-sm" data-translate="contact-form-message-placeholder" placeholder="Tell me about your project..."></textarea>
 <div class="text-right text-xs text-gray-500 mt-1">
-<span id="message-count">0</span>/500 characters
+<span id="message-count">0</span>/500 <span data-translate="contact-form-characters">characters</span>
 </div>
 </div>
-<button type="submit" id="submit-btn" class="w-full bg-primary text-white py-3 px-6 !rounded-button hover:bg-opacity-90 transition-colors font-medium whitespace-nowrap">
+<button type="submit" id="submit-btn" class="w-full bg-primary text-white py-3 px-6 !rounded-button hover:bg-opacity-90 transition-colors font-medium whitespace-nowrap" data-translate="contact-form-submit">
 Send Message
 </button>
 <div id="form-status" class="mt-4 text-center hidden"></div>
@@ -654,11 +749,11 @@ Send Message
 </div>
 </section>
 </main>
-<footer class="bg-gray-900 text-white py-12">
-<div class="max-w-6xl mx-auto px-6">
+<footer class="bg-gray-900 text-white py-8 sm:py-12">
+<div class="max-w-6xl mx-auto px-4 sm:px-6">
 <div class="text-center">
-<h3 class="text-2xl font-bold mb-4">Alex Johnson</h3>
-<p class="text-gray-400 mb-6">Full Stack Developer & UI/UX Designer</p>
+<h3 class="text-xl sm:text-2xl font-bold mb-4">Alex Johnson</h3>
+<p class="text-sm sm:text-base text-gray-400 mb-6" data-translate="footer-subtitle">Full Stack Developer & UI/UX Designer</p>
 <div class="flex justify-center gap-6 mb-8">
 <a href="#" class="text-gray-400 hover:text-white transition-colors">
 <div class="w-6 h-6 flex items-center justify-center">
@@ -682,7 +777,7 @@ Send Message
 </a>
 </div>
 <div class="border-t border-gray-800 pt-6">
-<p class="text-gray-400">&copy; 2024 Alex Johnson. All rights reserved.</p>
+<p class="text-sm sm:text-base text-gray-400" data-translate="footer-copyright">&copy; 2024 Alex Johnson. All rights reserved.</p>
 </div>
 </div>
 </div>
@@ -692,6 +787,366 @@ Send Message
 </div>
 </button>
 </footer>
+<script id="language-switcher">
+document.addEventListener('DOMContentLoaded', function() {
+const languageToggle = document.getElementById('languageToggle');
+const languageMenu = document.getElementById('languageMenu');
+const currentLanguageSpan = document.getElementById('currentLanguage');
+const languageOptions = document.querySelectorAll('.language-option');
+let currentLang = 'en';
+const translations = {
+en: {
+'language-current': 'English',
+'language-english': 'English',
+'language-spanish': 'Español',
+'language-dutch': 'Nederlands',
+'hero-title': 'Full Stack Developer & UI/UX Designer',
+'nav-about': 'About',
+'nav-experience': 'Experience',
+'nav-skills': 'Skills',
+'nav-portfolio': 'Portfolio',
+'nav-education': 'Education',
+'nav-contact': 'Contact',
+'about-title': 'About Me',
+'about-paragraph-1': "I'm a passionate Full Stack Developer with over 5 years of experience creating innovative web applications and user experiences. My expertise spans across modern JavaScript frameworks, backend technologies, and UI/UX design principles.",
+'about-paragraph-2': 'I believe in writing clean, maintainable code and creating intuitive user interfaces that solve real-world problems. My approach combines technical excellence with creative problem-solving to deliver exceptional digital experiences.',
+'about-paragraph-3': "When I'm not coding, you can find me exploring new technologies, contributing to open-source projects, or sharing knowledge with the developer community through blog posts and speaking engagements.",
+'about-download-cv': 'Download CV',
+'about-stat-projects': 'Projects Completed',
+'about-stat-experience': 'Years Experience',
+'about-stat-clients': 'Happy Clients',
+'about-stat-technologies': 'Technologies',
+'experience-title': 'Work Experience',
+'experience-job-1-title': 'Senior Full Stack Developer',
+'experience-job-1-company': 'TechCorp Solutions',
+'experience-job-1-period': '2022 - Present',
+'experience-job-1-desc-1': '• Led development of 3 major web applications using React, Node.js, and MongoDB',
+'experience-job-1-desc-2': '• Implemented microservices architecture reducing system response time by 40%',
+'experience-job-1-desc-3': '• Mentored junior developers and conducted code reviews',
+'experience-job-1-desc-4': '• Collaborated with UX team to improve user engagement by 60%',
+'experience-job-2-title': 'Full Stack Developer',
+'experience-job-2-company': 'Digital Innovations Inc',
+'experience-job-2-period': '2020 - 2022',
+'experience-job-2-desc-1': '• Developed and maintained e-commerce platforms serving 10,000+ users',
+'experience-job-2-desc-2': '• Built RESTful APIs and integrated third-party payment systems',
+'experience-job-2-desc-3': '• Optimized database queries improving application performance by 35%',
+'experience-job-2-desc-4': '• Implemented automated testing reducing bug reports by 50%',
+'experience-job-3-title': 'Frontend Developer',
+'experience-job-3-company': 'StartupHub',
+'experience-job-3-period': '2019 - 2020',
+'experience-job-3-desc-1': '• Created responsive web applications using Vue.js and CSS frameworks',
+'experience-job-3-desc-2': '• Collaborated with designers to implement pixel-perfect UI components',
+'experience-job-3-desc-3': '• Improved website loading speed by 45% through optimization techniques',
+'experience-job-3-desc-4': '• Participated in agile development processes and sprint planning',
+'skills-title': 'Skills & Technologies',
+'skills-technical': 'Technical Skills',
+'skills-tools': 'Tools & Frameworks',
+'portfolio-title': 'Portfolio',
+'portfolio-filter-all': 'All Projects',
+'portfolio-filter-web': 'Web Apps',
+'portfolio-filter-mobile': 'Mobile',
+'portfolio-filter-design': 'UI/UX',
+'portfolio-project-1-title': 'E-commerce Platform',
+'portfolio-project-1-desc': 'A full-featured online shopping platform built with React and Node.js, featuring payment integration and inventory management.',
+'portfolio-project-2-title': 'Task Management App',
+'portfolio-project-2-desc': 'A productivity mobile application with real-time synchronization, team collaboration features, and intuitive task organization.',
+'portfolio-project-3-title': 'Analytics Dashboard',
+'portfolio-project-3-desc': 'A comprehensive business intelligence dashboard with interactive charts, real-time data updates, and customizable reports.',
+'portfolio-project-4-title': 'Banking App Design',
+'portfolio-project-4-desc': 'Complete UI/UX design for a modern banking application, focusing on security, accessibility, and user experience.',
+'portfolio-project-5-title': 'Social Media Platform',
+'portfolio-project-5-desc': 'A modern social networking platform with real-time messaging, content sharing, and advanced privacy controls.',
+'portfolio-project-6-title': 'Fitness App Design',
+'portfolio-project-6-desc': 'Complete design system for a fitness tracking application, including workout plans, progress tracking, and social features.',
+'portfolio-live-demo': 'Live Demo',
+'portfolio-code': 'Code',
+'portfolio-view-design': 'View Design',
+'portfolio-case-study': 'Case Study',
+'education-title': 'Education & Certifications',
+'education-subtitle': 'Education',
+'education-degree-1': 'Bachelor of Science in Computer Science',
+'education-university-1': 'Stanford University',
+'education-period-1': '2015 - 2019',
+'education-desc-1': 'Graduated Magna Cum Laude with focus on Software Engineering and Human-Computer Interaction. Relevant coursework: Data Structures, Algorithms, Web Development, Database Systems.',
+'education-degree-2': 'Master of Science in Software Engineering',
+'education-university-2': 'UC Berkeley',
+'education-period-2': '2019 - 2021',
+'education-desc-2': 'Specialized in Advanced Software Architecture and Machine Learning Applications. Thesis: "Scalable Web Applications using Microservices Architecture".',
+'education-certifications': 'Certifications',
+'education-cert-1': 'AWS Certified Solutions Architect',
+'education-cert-1-issuer': 'Amazon Web Services • 2023',
+'education-cert-2': 'Google Cloud Professional Developer',
+'education-cert-2-issuer': 'Google Cloud Platform • 2022',
+'education-cert-3': 'Certified Kubernetes Administrator',
+'education-cert-3-issuer': 'Cloud Native Computing Foundation • 2022',
+'education-cert-4': 'MongoDB Certified Developer',
+'education-cert-4-issuer': 'MongoDB University • 2021',
+'contact-title': 'Get In Touch',
+'contact-description': "I'm always interested in new opportunities and exciting projects. Whether you have a question or just want to say hello, feel free to reach out!",
+'contact-info-title': 'Contact Information',
+'contact-email-label': 'Email',
+'contact-phone-label': 'Phone',
+'contact-location-label': 'Location',
+'contact-follow': 'Follow Me',
+'contact-form-name': 'Name',
+'contact-form-name-placeholder': 'Your Name',
+'contact-form-email': 'Email',
+'contact-form-email-placeholder': 'your@email.com',
+'contact-form-subject': 'Subject',
+'contact-form-subject-placeholder': 'Project Inquiry',
+'contact-form-message': 'Message',
+'contact-form-message-placeholder': 'Tell me about your project...',
+'contact-form-characters': 'characters',
+'contact-form-submit': 'Send Message',
+'footer-subtitle': 'Full Stack Developer & UI/UX Designer',
+'footer-copyright': '© 2024 Alex Johnson. All rights reserved.'
+},
+es: {
+'language-current': 'Español',
+'language-english': 'English',
+'language-spanish': 'Español',
+'language-dutch': 'Nederlands',
+'hero-title': 'Desarrollador Full Stack y Diseñador UI/UX',
+'nav-about': 'Sobre mí',
+'nav-experience': 'Experiencia',
+'nav-skills': 'Habilidades',
+'nav-portfolio': 'Portafolio',
+'nav-education': 'Educación',
+'nav-contact': 'Contacto',
+'about-title': 'Sobre mí',
+'about-paragraph-1': 'Soy un Desarrollador Full Stack apasionado con más de 5 años de experiencia creando aplicaciones web innovadoras y experiencias de usuario. Mi experiencia abarca marcos de trabajo modernos de JavaScript, tecnologías backend y principios de diseño UI/UX.',
+'about-paragraph-2': 'Creo en escribir código limpio y mantenible, y crear interfaces de usuario intuitivas que resuelvan problemas del mundo real. Mi enfoque combina excelencia técnica con resolución creativa de problemas para entregar experiencias digitales excepcionales.',
+'about-paragraph-3': 'Cuando no estoy programando, puedes encontrarme explorando nuevas tecnologías, contribuyendo a proyectos de código abierto, o compartiendo conocimiento con la comunidad de desarrolladores a través de publicaciones de blog y charlas.',
+'about-download-cv': 'Descargar CV',
+'about-stat-projects': 'Proyectos Completados',
+'about-stat-experience': 'Años de Experiencia',
+'about-stat-clients': 'Clientes Satisfechos',
+'about-stat-technologies': 'Tecnologías',
+'experience-title': 'Experiencia Laboral',
+'experience-job-1-title': 'Desarrollador Full Stack Senior',
+'experience-job-1-company': 'TechCorp Solutions',
+'experience-job-1-period': '2022 - Presente',
+'experience-job-1-desc-1': '• Dirigí el desarrollo de 3 aplicaciones web principales usando React, Node.js y MongoDB',
+'experience-job-1-desc-2': '• Implementé arquitectura de microservicios reduciendo el tiempo de respuesta del sistema en 40%',
+'experience-job-1-desc-3': '• Mentoricé desarrolladores junior y realicé revisiones de código',
+'experience-job-1-desc-4': '• Colaboré con el equipo UX para mejorar la participación del usuario en 60%',
+'experience-job-2-title': 'Desarrollador Full Stack',
+'experience-job-2-company': 'Digital Innovations Inc',
+'experience-job-2-period': '2020 - 2022',
+'experience-job-2-desc-1': '• Desarrollé y mantuve plataformas de comercio electrónico sirviendo a más de 10,000 usuarios',
+'experience-job-2-desc-2': '• Construí APIs RESTful e integré sistemas de pago de terceros',
+'experience-job-2-desc-3': '• Optimicé consultas de base de datos mejorando el rendimiento de la aplicación en 35%',
+'experience-job-2-desc-4': '• Implementé pruebas automatizadas reduciendo los reportes de errores en 50%',
+'experience-job-3-title': 'Desarrollador Frontend',
+'experience-job-3-company': 'StartupHub',
+'experience-job-3-period': '2019 - 2020',
+'experience-job-3-desc-1': '• Creé aplicaciones web responsivas usando Vue.js y frameworks CSS',
+'experience-job-3-desc-2': '• Colaboré con diseñadores para implementar componentes UI pixel-perfect',
+'experience-job-3-desc-3': '• Mejoré la velocidad de carga del sitio web en 45% mediante técnicas de optimización',
+'experience-job-3-desc-4': '• Participé en procesos de desarrollo ágil y planificación de sprints',
+'skills-title': 'Habilidades y Tecnologías',
+'skills-technical': 'Habilidades Técnicas',
+'skills-tools': 'Herramientas y Frameworks',
+'portfolio-title': 'Portafolio',
+'portfolio-filter-all': 'Todos los Proyectos',
+'portfolio-filter-web': 'Aplicaciones Web',
+'portfolio-filter-mobile': 'Móvil',
+'portfolio-filter-design': 'UI/UX',
+'portfolio-project-1-title': 'Plataforma E-commerce',
+'portfolio-project-1-desc': 'Una plataforma de compras en línea completa construida con React y Node.js, con integración de pagos y gestión de inventario.',
+'portfolio-project-2-title': 'App de Gestión de Tareas',
+'portfolio-project-2-desc': 'Una aplicación móvil de productividad con sincronización en tiempo real, funciones de colaboración en equipo y organización intuitiva de tareas.',
+'portfolio-project-3-title': 'Panel de Análisis',
+'portfolio-project-3-desc': 'Un panel de inteligencia empresarial integral con gráficos interactivos, actualizaciones de datos en tiempo real e informes personalizables.',
+'portfolio-project-4-title': 'Diseño de App Bancaria',
+'portfolio-project-4-desc': 'Diseño UI/UX completo para una aplicación bancaria moderna, enfocándose en seguridad, accesibilidad y experiencia del usuario.',
+'portfolio-project-5-title': 'Plataforma de Redes Sociales',
+'portfolio-project-5-desc': 'Una plataforma de redes sociales moderna con mensajería en tiempo real, compartir contenido y controles avanzados de privacidad.',
+'portfolio-project-6-title': 'Diseño de App de Fitness',
+'portfolio-project-6-desc': 'Sistema de diseño completo para una aplicación de seguimiento de fitness, incluyendo planes de entrenamiento, seguimiento de progreso y funciones sociales.',
+'portfolio-live-demo': 'Demo en Vivo',
+'portfolio-code': 'Código',
+'portfolio-view-design': 'Ver Diseño',
+'portfolio-case-study': 'Caso de Estudio',
+'education-title': 'Educación y Certificaciones',
+'education-subtitle': 'Educación',
+'education-degree-1': 'Licenciatura en Ciencias de la Computación',
+'education-university-1': 'Universidad de Stanford',
+'education-period-1': '2015 - 2019',
+'education-desc-1': 'Graduado Magna Cum Laude con especialización en Ingeniería de Software e Interacción Humano-Computadora. Cursos relevantes: Estructuras de Datos, Algoritmos, Desarrollo Web, Sistemas de Base de Datos.',
+'education-degree-2': 'Maestría en Ciencias en Ingeniería de Software',
+'education-university-2': 'UC Berkeley',
+'education-period-2': '2019 - 2021',
+'education-desc-2': 'Especialización en Arquitectura Avanzada de Software y Aplicaciones de Aprendizaje Automático. Tesis: "Aplicaciones Web Escalables usando Arquitectura de Microservicios".',
+'education-certifications': 'Certificaciones',
+'education-cert-1': 'AWS Certified Solutions Architect',
+'education-cert-1-issuer': 'Amazon Web Services • 2023',
+'education-cert-2': 'Google Cloud Professional Developer',
+'education-cert-2-issuer': 'Google Cloud Platform • 2022',
+'education-cert-3': 'Certified Kubernetes Administrator',
+'education-cert-3-issuer': 'Cloud Native Computing Foundation • 2022',
+'education-cert-4': 'MongoDB Certified Developer',
+'education-cert-4-issuer': 'MongoDB University • 2021',
+'contact-title': 'Contacto',
+'contact-description': '¡Siempre estoy interesado en nuevas oportunidades y proyectos emocionantes. Ya sea que tengas una pregunta o solo quieras saludar, no dudes en contactarme!',
+'contact-info-title': 'Información de Contacto',
+'contact-email-label': 'Correo',
+'contact-phone-label': 'Teléfono',
+'contact-location-label': 'Ubicación',
+'contact-follow': 'Sígueme',
+'contact-form-name': 'Nombre',
+'contact-form-name-placeholder': 'Tu Nombre',
+'contact-form-email': 'Correo',
+'contact-form-email-placeholder': 'tu@correo.com',
+'contact-form-subject': 'Asunto',
+'contact-form-subject-placeholder': 'Consulta de Proyecto',
+'contact-form-message': 'Mensaje',
+'contact-form-message-placeholder': 'Cuéntame sobre tu proyecto...',
+'contact-form-characters': 'caracteres',
+'contact-form-submit': 'Enviar Mensaje',
+'footer-subtitle': 'Desarrollador Full Stack y Diseñador UI/UX',
+'footer-copyright': '© 2024 Alex Johnson. Todos los derechos reservados.'
+},
+nl: {
+'language-current': 'Nederlands',
+'language-english': 'English',
+'language-spanish': 'Español',
+'language-dutch': 'Nederlands',
+'hero-title': 'Full Stack Ontwikkelaar & UI/UX Designer',
+'nav-about': 'Over mij',
+'nav-experience': 'Ervaring',
+'nav-skills': 'Vaardigheden',
+'nav-portfolio': 'Portfolio',
+'nav-education': 'Onderwijs',
+'nav-contact': 'Contact',
+'about-title': 'Over mij',
+'about-paragraph-1': 'Ik ben een gepassioneerde Full Stack Ontwikkelaar met meer dan 5 jaar ervaring in het creëren van innovatieve webapplicaties en gebruikerservaringen. Mijn expertise omvat moderne JavaScript frameworks, backend technologieën en UI/UX design principes.',
+'about-paragraph-2': 'Ik geloof in het schrijven van schone, onderhoudbare code en het creëren van intuïtieve gebruikersinterfaces die echte problemen oplossen. Mijn aanpak combineert technische uitmuntendheid met creatieve probleemoplossing om uitzonderlijke digitale ervaringen te leveren.',
+'about-paragraph-3': 'Wanneer ik niet aan het programmeren ben, kun je me vinden terwijl ik nieuwe technologieën verken, bijdraag aan open-source projecten, of kennis deel met de ontwikkelaarsgemeenschap door blogposts en lezingen.',
+'about-download-cv': 'CV Downloaden',
+'about-stat-projects': 'Voltooide Projecten',
+'about-stat-experience': 'Jaar Ervaring',
+'about-stat-clients': 'Tevreden Klanten',
+'about-stat-technologies': 'Technologieën',
+'experience-title': 'Werkervaring',
+'experience-job-1-title': 'Senior Full Stack Ontwikkelaar',
+'experience-job-1-company': 'TechCorp Solutions',
+'experience-job-1-period': '2022 - Heden',
+'experience-job-1-desc-1': '• Leidde de ontwikkeling van 3 grote webapplicaties met React, Node.js en MongoDB',
+'experience-job-1-desc-2': '• Implementeerde microservices architectuur waardoor systeemresponstijd met 40% werd verminderd',
+'experience-job-1-desc-3': '• Mentorde junior ontwikkelaars en voerde code reviews uit',
+'experience-job-1-desc-4': '• Werkte samen met UX team om gebruikersbetrokkenheid met 60% te verbeteren',
+'experience-job-2-title': 'Full Stack Ontwikkelaar',
+'experience-job-2-company': 'Digital Innovations Inc',
+'experience-job-2-period': '2020 - 2022',
+'experience-job-2-desc-1': '• Ontwikkelde en onderhield e-commerce platforms die meer dan 10.000 gebruikers bedienden',
+'experience-job-2-desc-2': '• Bouwde RESTful APIs en integreerde externe betalingssystemen',
+'experience-job-2-desc-3': '• Optimaliseerde database queries waardoor applicatieprestaties met 35% verbeterden',
+'experience-job-2-desc-4': '• Implementeerde geautomatiseerde tests waardoor bug rapporten met 50% verminderde',
+'experience-job-3-title': 'Frontend Ontwikkelaar',
+'experience-job-3-company': 'StartupHub',
+'experience-job-3-period': '2019 - 2020',
+'experience-job-3-desc-1': '• Creëerde responsieve webapplicaties met Vue.js en CSS frameworks',
+'experience-job-3-desc-2': '• Werkte samen met ontwerpers om pixel-perfecte UI componenten te implementeren',
+'experience-job-3-desc-3': '• Verbeterde website laadsnelheid met 45% door optimalisatietechnieken',
+'experience-job-3-desc-4': '• Nam deel aan agile ontwikkelingsprocessen en sprint planning',
+'skills-title': 'Vaardigheden & Technologieën',
+'skills-technical': 'Technische Vaardigheden',
+'skills-tools': 'Tools & Frameworks',
+'portfolio-title': 'Portfolio',
+'portfolio-filter-all': 'Alle Projecten',
+'portfolio-filter-web': 'Web Apps',
+'portfolio-filter-mobile': 'Mobiel',
+'portfolio-filter-design': 'UI/UX',
+'portfolio-project-1-title': 'E-commerce Platform',
+'portfolio-project-1-desc': 'Een volledig functioneel online winkelplatform gebouwd met React en Node.js, met betalingsintegratie en voorraadbeheersysteem.',
+'portfolio-project-2-title': 'Taakbeheer App',
+'portfolio-project-2-desc': 'Een productiviteit mobiele applicatie met real-time synchronisatie, teamsamenwerking functies en intuïtieve taakorganisatie.',
+'portfolio-project-3-title': 'Analytics Dashboard',
+'portfolio-project-3-desc': 'Een uitgebreid business intelligence dashboard met interactieve grafieken, real-time data updates en aanpasbare rapporten.',
+'portfolio-project-4-title': 'Banking App Design',
+'portfolio-project-4-desc': 'Complete UI/UX design voor een moderne banking applicatie, gericht op veiligheid, toegankelijkheid en gebruikerservaring.',
+'portfolio-project-5-title': 'Social Media Platform',
+'portfolio-project-5-desc': 'Een modern social networking platform met real-time messaging, content delen en geavanceerde privacy controles.',
+'portfolio-project-6-title': 'Fitness App Design',
+'portfolio-project-6-desc': 'Compleet designsysteem voor een fitness tracking applicatie, inclusief workout plannen, voortgangsvolging en sociale functies.',
+'portfolio-live-demo': 'Live Demo',
+'portfolio-code': 'Code',
+'portfolio-view-design': 'Bekijk Design',
+'portfolio-case-study': 'Case Study',
+'education-title': 'Onderwijs & Certificaten',
+'education-subtitle': 'Onderwijs',
+'education-degree-1': 'Bachelor of Science in Informatica',
+'education-university-1': 'Stanford Universiteit',
+'education-period-1': '2015 - 2019',
+'education-desc-1': 'Afgestudeerd Magna Cum Laude met focus op Software Engineering en Mens-Computer Interactie. Relevante vakken: Datastructuren, Algoritmen, Webontwikkeling, Database Systemen.',
+'education-degree-2': 'Master of Science in Software Engineering',
+'education-university-2': 'UC Berkeley',
+'education-period-2': '2019 - 2021',
+'education-desc-2': 'Gespecialiseerd in Geavanceerde Software Architectuur en Machine Learning Toepassingen. Thesis: "Schaalbare Webapplicaties met Microservices Architectuur".',
+'education-certifications': 'Certificaten',
+'education-cert-1': 'AWS Certified Solutions Architect',
+'education-cert-1-issuer': 'Amazon Web Services • 2023',
+'education-cert-2': 'Google Cloud Professional Developer',
+'education-cert-2-issuer': 'Google Cloud Platform • 2022',
+'education-cert-3': 'Certified Kubernetes Administrator',
+'education-cert-3-issuer': 'Cloud Native Computing Foundation • 2022',
+'education-cert-4': 'MongoDB Certified Developer',
+'education-cert-4-issuer': 'MongoDB University • 2021',
+'contact-title': 'Neem Contact Op',
+'contact-description': 'Ik ben altijd geïnteresseerd in nieuwe kansen en spannende projecten. Of je nu een vraag hebt of gewoon hallo wilt zeggen, aarzel niet om contact op te nemen!',
+'contact-info-title': 'Contactinformatie',
+'contact-email-label': 'E-mail',
+'contact-phone-label': 'Telefoon',
+'contact-location-label': 'Locatie',
+'contact-follow': 'Volg mij',
+'contact-form-name': 'Naam',
+'contact-form-name-placeholder': 'Jouw Naam',
+'contact-form-email': 'E-mail',
+'contact-form-email-placeholder': 'jouw@email.com',
+'contact-form-subject': 'Onderwerp',
+'contact-form-subject-placeholder': 'Project Aanvraag',
+'contact-form-message': 'Bericht',
+'contact-form-message-placeholder': 'Vertel me over je project...',
+'contact-form-characters': 'karakters',
+'contact-form-submit': 'Bericht Verzenden',
+'footer-subtitle': 'Full Stack Ontwikkelaar & UI/UX Designer',
+'footer-copyright': '© 2024 Alex Johnson. Alle rechten voorbehouden.'
+}
+};
+function updateLanguage(lang) {
+currentLang = lang;
+const elements = document.querySelectorAll('[data-translate]');
+elements.forEach(element => {
+const key = element.getAttribute('data-translate');
+if (translations[lang] && translations[lang][key]) {
+if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+element.placeholder = translations[lang][key];
+} else {
+element.textContent = translations[lang][key];
+}
+}
+});
+currentLanguageSpan.textContent = translations[lang]['language-current'];
+document.documentElement.lang = lang;
+}
+languageToggle.addEventListener('click', function(e) {
+e.stopPropagation();
+languageMenu.classList.toggle('show');
+});
+languageOptions.forEach(option => {
+option.addEventListener('click', function() {
+const selectedLang = this.getAttribute('data-lang');
+updateLanguage(selectedLang);
+languageMenu.classList.remove('show');
+});
+});
+document.addEventListener('click', function() {
+languageMenu.classList.remove('show');
+});
+updateLanguage(currentLang);
+});
+</script>
 <script id="navigation-scroll">
 document.addEventListener('DOMContentLoaded', function() {
 const navLinks = document.querySelectorAll('.nav-link');
@@ -750,6 +1205,26 @@ card.style.display = 'block';
 card.style.display = 'none';
 }
 });
+});
+});
+});
+</script>
+<script id="experience-toggle">
+document.addEventListener('DOMContentLoaded', function() {
+const experienceToggles = document.querySelectorAll('.experience-toggle');
+experienceToggles.forEach(toggle => {
+toggle.addEventListener('click', function() {
+const targetId = this.getAttribute('data-target');
+const targetContent = document.getElementById(targetId);
+const icon = this.querySelector('.experience-icon');
+const isExpanded = targetContent.style.maxHeight && targetContent.style.maxHeight !== '0px';
+if (isExpanded) {
+targetContent.style.maxHeight = '0px';
+icon.style.transform = 'rotate(0deg)';
+} else {
+targetContent.style.maxHeight = targetContent.scrollHeight + 'px';
+icon.style.transform = 'rotate(180deg)';
+}
 });
 });
 });
@@ -927,6 +1402,32 @@ showToast('CV download started successfully!');
 console.error('Error generating PDF:', error);
 showToast('Error generating CV. Please try again.');
 }
+});
+});
+</script>
+<script id="page-protection">
+document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('contextmenu', function(e) {
+e.preventDefault();
+return false;
+});
+document.addEventListener('keydown', function(e) {
+if (e.key === 'F12' || 
+    (e.ctrlKey && e.shiftKey && e.key === 'I') ||
+    (e.ctrlKey && e.shiftKey && e.key === 'J') ||
+    (e.ctrlKey && e.key === 'U') ||
+    (e.ctrlKey && e.shiftKey && e.key === 'C')) {
+    e.preventDefault();
+    return false;
+}
+});
+document.addEventListener('selectstart', function(e) {
+e.preventDefault();
+return false;
+});
+document.addEventListener('dragstart', function(e) {
+e.preventDefault();
+return false;
 });
 });
 </script>
